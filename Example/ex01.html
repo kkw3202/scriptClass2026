@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>자바스크립트 연습문제 기초</title>
+</head>
+<body>
+    <!-- problem1() 은 스크립트에서 작성 할 함수명.
+     onclick="problem1()" 은 버튼을 클릭하는 사건이 일어나면 problem1()을 호출하여 실행하라는 뜻.
+     단, **함수는 스크립트 영역에만** 작성가능 -->
+    <button onclick="problem1()">문제1: 변수와 상수 출력</button>
+    <p id="p1"></p>
+    <hr/>
+    <button onclick="problem2()">문제 2: 두 수 더하기</button>
+    <p id="p2"></p>
+    <hr/>
+    <input id="numInput" type="number" placeholder="숫자 입력" />
+    <button onclick="showVariable()">값 확인</button>
+    <p id="output1"></p>
+
+    <!-- 반드시 내가 사용할 곳 밑에다가 작성 -->
+    <script>
+
+
+        // 연결 선언
+        let print01 = document.getElementById('p1');
+        let print02 = document.getElementById('p2');
+        let print03 = document.getElementById('output1');
+        let value1 = document.getElementById('numInput');
+        
+        // 함수
+        function problem1(){
+            let name='홍길동';
+            let age=20;
+            // DOM을 이용해 연결. DOM(도큐먼트)은 자바스크립트가 태그에 접근하도록 작성하는 방법.
+            // => 현재 id 가 p1 인 p 태그의 사이에 = 이후의 텍스트가 들어감
+            // document.getElementById('p1').innerText=`이름: ${name}, 나이: ${age}`;
+            // 문서화.대입 요소 id로('p1'). 텍스트로 = `이름: ${name}, 나이: ${age}`;
+            print01.innerText=`이름: ${name}, 나이: ${age}`;
+        }
+
+        function problem2(){
+            let x, y;
+            x= 10, y=5;
+            print02.innerText=`합계 : ${x+y}`;
+
+        }
+
+        function showVariable(){
+            // let num = value1.value;
+            // => 115
+            let num = Number(value1.value);
+            // => 16
+            console.log(num);
+            // input 태그를 이용해 받아오는 값은 문자열... 숫자로 쓰고싶다면 형변환
+            // Number()를 사용
+
+            print03.innerText=`변수 num의 값 : ${num}, +15 : ${num + 15}`;
+        }
+
+        
+    </script>
+</body>
+</html>

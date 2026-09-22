@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>스크립트 데이터 타입</title>
+</head>
+<body>
+    
+    <script>
+        // script 태그 사이에 작성 
+        // 변수를 선언 할 시 사용하는 키워드 : var let const
+        // ** 자바스크립트는 데이터 타입이 존재. 단, 선언하지도 않고, 같은 변수에 다른 데이터 타입을 집어넣을 수 도 있다.
+        // 자바스크립트는 동적인 기능을 html과 연동하여 사용 하게 할 수 있다.
+
+        // var 키워드 : 중복선언, 재할당 가능
+        // ES6 버전부터는 var를 사용하지 않음
+        var title='book';
+        console.log(title);
+
+        var title='movie';
+        console.log(title);
+
+        title='music';
+        console.log(title);
+
+        // let 키워드: 재선언x 재할당o
+        let title01='book02';
+        console.log(title01);
+        title01='html';
+        console.log(title01);
+
+        // const 키워드: 재선언, 재할당불가
+        const title02 ='java'; // 02의 타입은 문자열
+        console.log(title02);
+
+        let x=5, y=7; // x, y 의 타입은 int
+        // 삼항연산자 = 조건식 ? 참 : 거짓
+        let big = x>y?x:y;
+        console.log(big);
+
+        // 자바스크립트에서는 null 도 값이며, 반드시 소문자로 입력해야한다.(일종의 예약어?)
+        let user = null; // user 변수는 현재 비어있다.
+
+        let a = 1, b ='k';
+        console.log(a+b); // 숫자 + 문자 = 문자 나열로 실행
+        // console.log(a*b); // NaN 오류 출력. => (Not a Number) => 숫자가 아니어서 곱셈이 안됨
+        console.log('a는 ' + a + ', b는 ' + b + '이다. ');
+        // 자바스크립트에서 사용 가능한 printf문 => `
+        // ` (백틱)사용법
+        // `a는 ${a}이고, b는 ${b}이다.` => ${변수명}
+        console.log(`a는 ${a}이고 b는 ${b}이다.`)
+
+    </script>
+</body>
+</html>
