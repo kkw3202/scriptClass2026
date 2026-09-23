@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>for 연습문제</title>
+    <style>
+        .sum_wrap{
+            /* border: 1px solid red; */
+            width: 300px;
+            margin: 130px auto;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .sum_wrap label,
+        .sum_wrap input{
+            height: 20px;
+        }
+
+        .sum_wrap button{
+            height: 30px;
+            border-radius: 5px;
+            border: none;
+            background-color: rgb(66, 155, 14);
+            color: #fff;
+        }
+
+        .sum_wrap p{
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <!-- 1부터 input 태그에서 입력한 숫자를 전부 더한 값을 구하여 p태그에 출력. -->
+    <div class="sum_wrap">
+        <label for="sum_lastNum">숫자 : </label>
+        <input type="number" id="sum_lastNum" placeholder="숫자를 입력하세요" />
+        <button id="sum_btn" onclick="make_sum()">합계 구하기</button>
+        <p id="sum_print"></p>
+    </div>
+
+    <script>
+        // 연결 선언부
+        let sum_lastNum = document.getElementById('sum_lastNum');
+        let sum_print = document.getElementById('sum_print');
+
+        // 함수
+        function make_sum(){
+            let num = Number(sum_lastNum.value);
+            let sum = 0;
+
+            for(let i = 0; i<num; i++){
+                sum += (i+1);
+                console.log(`${i+1}번째 sum : ${sum}`);
+            }
+
+            sum_print.innerText = `1 부터 ${num}까지의 합 : ${sum}`;
+        }
+    </script>
+</body>
+</html>

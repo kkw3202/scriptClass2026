@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>자바스크립트 if</title>
+</head>
+<body>
+    <input type="text" id="id" placeholder="id를 입력"/>
+    <input type="password" id="pw" placeholder="pw를 입력"/>
+    <button onclick="logincheck()">로그인</button>
+
+    <script>
+        // 연결 선언
+        let id = document.getElementById('id');
+        let pw = document.getElementById('pw');
+
+        let num = 5;
+        if(num % 2 ==0){
+            console.log('짝수')
+        }else{
+            console.log('홀수')
+        }
+
+        // 로그인 문제) 
+        // id 와 pw 입력하는 input 2개 작성 
+        // button 에 onclick=logincheck() 함수를 작성
+        // id는 'admin' pw 는 '1234' => 로그인 성공. 이외는 로그인 실패
+        // console.log로 출력
+
+        function logincheck(){
+            if(id.value == 'admin' && pw.value == '1234'){
+                console.log('로그인 성공');
+                alert('로그인 성공')
+            }else{
+                console.log('로그인 실패');
+                alert('로그인 실패')
+            };
+        }
+
+    </script>
+</body>
+</html>

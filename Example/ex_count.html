@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>수량 카운트 1~10 (스핀)</title>
+    <style>
+        .count_btn_wrap{
+            display: flex;
+            justify-content: space-between;
+            border-radius: 20px;
+            border: 1px solid rgb(192, 192, 192);
+            width: 120px;
+            background-color: rgb(192, 192, 192);
+            margin: 120px auto;
+        }
+
+
+        .count_btn_wrap button,
+        .count_btn_wrap span{
+            width: 40px;
+            text-align: center;
+            height: 50px;
+        }
+
+        .count_btn_wrap span{
+            line-height: 50px;
+        }
+
+        .count_btn_wrap button{
+            border: none;
+            background-color: rgb(192, 192, 192);
+            border-radius: 20px;
+            font-size: 30px;
+        }
+
+        .count_btn_wrap button:focus{
+            color: blue;
+        }
+
+        .count_btn_wrap button:hover{
+            color: blue;
+            font-size: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="count_btn_wrap">
+        <button id="minus_btn" onclick="countMinus()">-</button>
+        <span id="count_num">1</span>
+        <button id="plus_btn" onclick="countPlus()">+</button>
+    </div>
+
+    <script>
+        // 연결 선언부
+        let count_num = document.getElementById('count_num');
+        let cnt_now = Number(count_num.innerText);
+
+        // 함수
+            // 빼기
+            function countMinus(){
+                switch(true){
+                    case cnt_now > 1 :
+                        cnt_now --;
+                        count_num.innerText = cnt_now;
+                        break;
+
+                    default :
+                        alert('최소 수량은 1개 입니다.');
+                }
+            }
+
+            // 더하기
+            function countPlus(){
+                switch(true){
+                    case cnt_now < 10 :
+                        cnt_now ++; 
+                        count_num.innerText = cnt_now;
+                        break;
+
+                    default :
+                        alert('최대 수량은 10개입니다.');
+                }
+            }
+
+    </script>
+</body>
+</html>

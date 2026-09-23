@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>급여계산 연습문제</title>
+</head>
+<body>
+    <label for="work_time">근무 시간 입력:</label>
+    <input type="number" id="work_time"/>
+    <button onclick="chkWorkTime()">급여 계산</button>
+
+    <p id="pay"></p>
+
+    <p id="work_status"></p>
+
+    <p id="pay_status"></p>
+
+    <script>
+        // 연결 선언부
+        let work_time = document.getElementById('work_time');
+        let pay = document.getElementById('pay');
+        let work_status = document.getElementById('work_status');
+        let pay_status = document.getElementById('pay_status');
+        // 함수
+        function chkWorkTime(){
+            console.log(work_time.value);
+            let time = Number(work_time.value);
+            let default_pay = 10000;
+            // console.log(typeof time);
+            pay.innerText = `급여 :`;
+            work_status.innerText = `근무 메시지 :`;
+            pay_status.innerText = `급여 상태 :`;
+            switch(true){
+                case time <= 0 :
+                    pay.innerText += ` 0원`;
+                    work_status.innerText += ` 출근하지 않았습니다.`;
+                    pay_status.innerText += ` 무급`;
+                    break;
+
+                case time <= 8:
+                    pay.innerText += ` ${default_pay*time}원`;
+                    work_status.innerText += ` 정상 근무`;
+                    pay_status.innerText += ` 급여 있음`; 
+                    break;
+
+                default :
+                    pay.innerText += ` ${default_pay*8 + (time-8)*default_pay*1.5}원`;
+                    work_status.innerText += ` 초과 근무`;
+                    pay_status.innerText += ` 급여 있음`; ; 
+                    break;
+            }
+        }
+    </script>
+</body>
+</html>

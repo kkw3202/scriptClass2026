@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상품 가격 계산</title>
+    <style>
+        body{
+            width: 350px;
+            overflow: hidden;
+            margin: 220px auto;
+            border: 1px solid #333;
+            display: flex;
+            flex-wrap: wrap;
+            align-content: space-between;
+            padding: 20px 0 20px 20px;
+        }
+
+        h1{
+            font-size: 30px;
+            width: 100%;
+            font-weight: 900;
+            margin-bottom: 0;
+        }
+
+        .default_price{
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        .cnt_input{
+            display: flex;
+            flex-wrap: wrap;
+            width: 280px;
+            height: 35px;
+            /* border: 1px solid red; */
+            justify-content: space-between;
+            align-items: center;
+            /* border: 1px solid yellow; */
+        }
+
+        .cnt_input input,
+        .cnt_input label{
+            height: 80%;
+        }
+        
+        .cnt_input input{
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .cnt_input input:focus{
+            outline: none;
+        }
+
+        .cnt_input button{
+            height: 100%;
+            border: none;
+            border-radius: 5px;
+            background-color: rgb(82, 189, 40);
+            color: #fff;
+        }
+
+
+        .buy_msg{
+            width: 100%;
+            height: 100px;
+            background-color: #dddddd;
+            margin-right: 20px;
+            margin-top: 20px;
+            padding: 10px;
+            /* border: 1px solid blueviolet; */
+        }
+    </style>
+</head>
+<body>
+    <h1>상품 주문하기</h1>
+    <p class="default_price">상품 단가 : 15,000원</p>
+
+    <div class="cnt_input">
+        <label for="buy_cnt">수량:</label>
+        <input type="number" id="buy_cnt" placeholder="수량 입력"/>
+        <button onclick="calcPrice()">금액 계산</button>
+    </div>
+    <div class="buy_msg">
+        <p id="total_price_print">수량을 입력하고 계산 버튼을 누르세요.</p>
+        <p id="free_send_print"></p>
+    </div>
+
+    <script>
+        // 연결 선언부
+        let buy_cnt = document.getElementById('buy_cnt');
+        let total_price_print = document.getElementById('total_price_print');
+        let free_send_print = document.getElementById('free_send_print');
+
+        //함수
+        function calcPrice(){
+            let total_price = 15000*Number(buy_cnt.value);
+            let free_send_msg;
+            if(buy_cnt.value <= 0){
+                alert('수량을 1개 이상 입력해 주세요')
+            }else{
+                if(total_price < 50000){
+                    free_send_msg = '5만원 미만 구매시 배송비 3,000원이 추가됩니다.';
+                }else{
+                    free_send_msg = '무료배송 대상이며, 사은품이 함께 증정됩니다.';
+                }
+                // .toLocaleString = 세 자리 마다 , 찍기
+                total_price_print.innerText = `총 결제 금액 : ${total_price.toLocaleString()}원`;
+                free_send_print.innerText = free_send_msg;
+            }
+            
+        }
+    </script>
+</body>
+</html>
