@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>심화 배열 문제1</title>
+</head>
+<body>
+    <h1>학생 점수 평가</h1>
+    <label for="score_input">학생점수 입력 : </label>
+    <input id="score_input" type="text" />
+    <button onclick="score_result03()" type="button">결과 확인</button>
+    <p id="score_result_print"></p>
+
+    <script>
+        // 연결부
+        let score_result_print = document.getElementById('score_result_print');
+        let score_input = document.getElementById('score_input');
+
+        //함수
+        function score_result(){
+            let inputed_score = score_input.value.split(',');
+            // console.log(inputed_score)
+            let score_results = [];
+            for(let i = 0; i<inputed_score.length; i++){
+                switch(true){
+                    case inputed_score[i] >=90 :
+                        score_results.push(`${inputed_score[i]}점 : A`);
+                        break;
+                    case inputed_score[i] >=80 : 
+                        score_results.push(`${inputed_score[i]}점 : B`);
+                        break;  
+                    case inputed_score[i] >=70 : 
+                        score_results.push(`${inputed_score[i]}점 : C`);
+                        break;
+                    default :
+                        score_results.push(`${inputed_score[i]}점 : F`);
+                        break;
+                }
+            }
+            score_result_print.innerText = score_results + ' ';
+        }
+
+        function score_result02(){
+            inputed_score = score_input.value.split(',');
+             for(let i = 0; i<inputed_score.length; i++){
+                switch(true){
+                    case inputed_score[i] >=90 :
+                        inputed_score.splice(i, 1, `${inputed_score[i]}점 : A`);
+                        break;
+                    case inputed_score[i] >=80 : 
+                        inputed_score.splice(i, 1, `${inputed_score[i]}점 : B`);
+                        break;  
+                    case inputed_score[i] >=70 : 
+                        inputed_score.splice(i, 1, `${inputed_score[i]}점 : C`);
+                        break;
+                    default :
+                       inputed_score.splice(i, 1, `${inputed_score[i]}점 : F`);
+                        break;
+                }
+            }
+            score_result_print.innerText = inputed_score;
+        }
+
+        function score_result03(){
+            inputed_score = score_input.value.split(',');
+            let result = '';
+            for(let i = 0; i<inputed_score.length; i++){
+                if(inputed_score[i] >=90) result += inputed_score[i] + '점 : A,';
+                else if(inputed_score[i] >=80) result += inputed_score[i] + '점 : B,';
+                else if(inputed_score[i] >=70) result += inputed_score[i] + '점 : C,';
+                else result += inputed_score[i] + '점 : F,';
+            }
+            console.log(typeof result.slice(0, -1));
+            score_result_print.innerText = result.slice(0, result.length-1);
+            // score_result_print.innerText = result.substring(0, result.length-1);
+        }
+    </script>
+</body>
+</html>

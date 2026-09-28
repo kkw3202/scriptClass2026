@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>배열(Array) 기초 설명</title>
+</head>
+<body>
+    <script>
+        // 프로퍼티와 메소드 구분 방법 : 프로퍼티는 ()가 없는 속성. 메소드는 ()가 붙는 **함수**
+
+        // 1. 기본 배열 선언 및 초기화
+        let fruits = ['사과', '딸기', '포도'];
+        console.log(`fruits 출력 : ${fruits}`);
+
+        // 2. numbers 배열에 1~5를 넣고 2번 값 출력
+        let numbers = [1,2,3,4,5];
+        console.log(`numbers의 2번 값: ${numbers[2]}`);
+        // 모든 배열의 데이터 타입은 요소의 데이터 타입과 무관하게 object(객체).
+        console.log(`numbers 의 데이터 타입  : ${typeof numbers}`);
+        console.log(`fruits 의 데이터 타입  : ${typeof fruits}`);
+
+        // 3. 배열의 길이를 세는 property length
+        let names = ['Jason','Alice','Candy','Chris'];
+        console.log(`names의 길이 : ${names.length}`);
+
+        // 4. 위에 선언된 numbers 배열을 이용해 합계를 구하기
+        let sum = 0;
+        for(let i=0; i<numbers.length; i++){
+            sum += numbers[i];
+        }
+        console.log(`numbers의 합계 : ${sum}`)
+
+        // 5. 혼합배열 arry01 선언
+        let arry01 = [10, 'Switch', '2026-09-28'];
+        console.log(`arry01 의 요소 : ${arry01}`);
+
+        // 6. 배열 선언 두번째 방식
+        let arry03 = Array(50,60,70);
+        console.log(`arry03 요소 : ${arry03}`);
+
+        // 7. 배열 선언 세번째 방식
+            // arry04 는 값이 빈 상태로 선언
+        let arry04 = new Array(3); // 딱 값이 3개 까지 들어감.
+        console.log(`arry04 요소 : ${arry04}`)
+            // 위와 같은 경우 javaScript는 아무 값도 출력하지 않음
+
+        // 8. 빈 배열 출력 방법 : fill() 메소드로 값을 지정, 숫자 외에 들어갈 수 있는 값 전부 들어 갈 수 있음
+        let arry05 = new Array(3).fill(0);
+        // arry05의 모든 요소를 0으로 채운다.
+        console.log(`arry05 요소 : ${arry05}`)
+
+        // 위 배열의 각 요소 값을 1, 2, 3으로 변경하여 출력
+        for(let i = 0; i<arry05.length; i++){
+            arry05[i] = i+1;
+        }
+
+        console.log(`변경 후 arry05 요소 : ${arry05}`)
+    </script>
+</body>
+</html>

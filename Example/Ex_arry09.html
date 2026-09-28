@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>심화 연습문제 09</title>
+    <style>
+        .main{
+            border: 1px solid red;
+            width: 700px;
+            margin: 0 auto;
+            text-align: center;
+            
+        }
+        
+        .input_wrap{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 50px;
+            font-size: 20px;
+            vertical-align: top;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="main">
+        <h1>배열에서 짝수와 홀수 구분</h1>
+        <div class="input_wrap">
+            <label for="array_input">숫자 배열 입력</label>
+            <input type="text" id="array_input"/> 
+            <button onclick="result_chk()" type="button">결과 확인</button>
+        </div>
+        <p id="print_jjackHol"></p>
+    </div>
+
+    <script>
+        //연결부
+        let array_input = document.getElementById('array_input');
+        let print_jjackHol = document.getElementById('print_jjackHol');
+
+        // 함수
+        function result_chk(){
+            let quiz = array_input.value.split(',');
+            let resultJjack='짝수';
+            let resultHol='홀수';
+            for(let i =0; i<quiz.length; i++){
+                if(quiz[i] % 2 == 0) resultJjack += quiz[i] + ',';
+                else resultHol += quiz[i] + ',';
+            }
+            
+            print_jjackHol.innerText = resultJjack.slice(0, -1) + ' / ' + resultHol.slice(0, -1);
+        }
+    </script>
+</body>
+</html>

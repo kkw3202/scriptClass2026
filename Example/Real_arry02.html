@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>실무 배열 문제</title>
+    <style>
+        .notEnough{
+            color: rgb(206, 19, 19);
+        }
+    </style>
+</head>
+<body>
+    <h1>책 재고 현황</h1>
+    <button onclick="book_chk()">재고 확인</button>
+    <div id="output"></div>
+
+    <script>
+        // 연결부
+        let output = document.getElementById('output');
+
+        // 함수부
+        function book_chk(){
+            let book_name = ['자바스크립트 입문','HTML&CSS','파이썬 기초','데이터 분석'];
+            let book_cnt = [10, 3, 7, 2];
+
+            
+            let result ='';
+            
+            for(let i =0; i<book_name.length; i++){
+                let is_enough = book_cnt[i] <= 5 ? '재고 부족':'재고 충분';
+                let is_enough_class = book_cnt[i] <= 5 ? 'notEnough':'enough';
+                result += `${book_name[i]} : ${book_cnt[i]}권 - <span class='${is_enough_class}'>${is_enough}</span></br>`
+            }
+
+            output.innerHTML = result;
+            
+        }
+    </script>
+</body>
+</html>

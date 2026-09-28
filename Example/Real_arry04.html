@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>실무 연습문제 4</title>
+    <style>
+        .main{
+            width: 300px;
+            margin: 0 auto;
+            display: flex;
+            align-content: center;
+            flex-wrap: wrap;
+        }
+
+        .main h1,
+        .vote_result,
+        button{
+            width: 100%;
+        }
+        .win{
+            color: rgb(13, 126, 13);
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <h1>투표 결과</h1>
+        <button onclick="get_result()">투표 집계</button>
+        <div id="vote_result"></div>
+    </div>
+    <script>
+        // 연결부
+        let vote_result = document.getElementById('vote_result');
+
+        // 함수부
+        function get_result(){
+            let candidate_name = ['철수','영희','민수'];
+            let candidate_score = [120, 150, 90];
+            let win_score = 0;
+            let result ='';
+
+            for(let i =0; i<candidate_name.length; i++){
+                if(candidate_score[i] > win_score) win_score=candidate_score[i];
+            }
+            console.log(win_score)
+
+            for(let i =0; i<candidate_name.length; i++){
+                let is_win = candidate_score[i] == win_score ? 'win':'lose';
+                let is_win_print = candidate_score[i] == win_score ? '1등':'1등 아님';
+
+                result += `${candidate_name[i]} : ${candidate_score[i]}표 <span class='${is_win}'>${is_win_print}</span></br>`
+            }
+            vote_result.innerHTML = result;
+        }
+    </script>
+</body>
+</html>

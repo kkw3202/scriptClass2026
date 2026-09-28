@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>실무 배열 문제 05</title>
+    <style>
+        body{
+            text-align: center;
+        }
+        .product_info,
+        .product_info2{
+            display: flex;
+            align-items: center;
+            width: 200px;
+            margin: 0 auto;
+            padding-left: 20px;
+        }
+
+        .product_info{
+            background-color: rgb(218, 218, 218);
+        }
+        .product_info2{
+            background-color: rgb(231, 231, 231);
+        }
+
+        span{
+            color: rgb(59, 177, 36);
+            font-weight: bold;
+        }
+
+        button{
+            width: 30px;
+            height: 20px;
+            margin-left: 15px;
+            font-weight: bolder;
+        }
+    </style>
+</head>
+<body>
+    <h1>실시간 재고 관리</h1>
+    <div id="store_print">
+
+    </div>
+    <script>
+
+        //기본값
+        let product_name = ['노트북','마우스','키보드'];
+        let product_cnt = [3, 3, 2];
+        
+        // 연결부
+        let store_print = document.getElementById('store_print');
+
+        // 함수부
+        function render(){
+            let product = '';
+            let sum_cnt = 0;
+            
+            for(let i = 0; i<product_name.length; i++){
+                if(i % 2 == 0 || i == 0){
+                    product += `<div class='product_info'>
+                                    <p>${product_name[i]} : ${product_cnt[i]}개</p>
+                                    <button class='mainus' onclick="pro_minus(${i})">-</button>
+                                    <button class='plus' onclick="pro_plus(${i})">+</button>
+                                </div>`
+                }else{
+                    product += `<div class='product_info2'>
+                                    <p>${product_name[i]} : ${product_cnt[i]}개</p>
+                                    <button class='mainus' onclick="pro_minus(${i})">-</button>
+                                    <button class='plus' onclick="pro_plus(${i})">+</button>
+                                </div>`
+                }
+
+
+                sum_cnt += product_cnt[i]
+            }
+            let sum_print = `<span>총 재고 : ${sum_cnt}개</span>`
+
+            store_print.innerHTML = product + sum_print;
+
+            
+            
+        }
+
+        function pro_minus(product_name_index){
+            // console.log(typeof product_name_index);
+            let i = product_name_index;
+            if (product_cnt[i] >= 1){
+                product_cnt[i]--;
+            }else{
+                alert('수량은 0개 이하가 될 수 없습니다')
+            }
+            render()
+
+        }
+
+        function pro_plus(product_name_index){
+            // console.log(typeof product_name_index);
+            let i = product_name_index;
+            product_cnt[i]++;
+            render()
+        }
+
+        render();
+    </script>
+</body>
+</html>

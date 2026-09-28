@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>실무 배열 문제</title>
+    <style>
+        p{
+            font-size: 20px;
+        }
+
+        .pass{
+            color: rgb(63, 201, 29);
+            font-weight: bold;
+        }
+        
+        .fail{
+            color: rgb(236, 32, 17);
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h2>학생 성적표</h2>
+    <button onclick="showGrade()">성적표 출력</button>
+    <div id="output"></div>
+    <script>
+        let output = document.getElementById('output');
+        // innerText 로 들어가면 <> 내부에 있어도 태그가 아닌 문자로 인식됨.
+        // innnerHTML => <div id='output'></div>에 <span calss='a'>~~</span> 이 태그로서 들어감.
+        function showGrade(){
+            // 학생명, 점수를 배열로 생성
+            let students = ['철수','영희','민수','수지','준호'];
+            let score = [85,56,92,77,60];
+            let result = '';
+
+            for(let i =0; i<score.length; i++){
+                let status = score[i] >= 60 ? '합격':'불합격';
+                let className = score[i] >= 60 ? 'pass':'fail';
+                // result 에 태그작성
+                result += `${students[i]}:${score[i]}점 - <span class='${className}'>${status}</span></br>`;
+            }
+
+            output.innerHTML = result;
+        }
+    </script>
+</body>
+</html>
