@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2차원 기초 배열문제</title>
+</head>
+<body>
+    <script>
+        const arr01 = Array.from(Array(3), () => new Array(3).fill('0'));
+        
+        // console.log(`arr01 is 0?: ${arr01}`);
+
+
+        for(let i = 0; i<arr01.length; i++){
+            for(let j = 0; j<arr01[i].length; j++){
+                if(i==j){
+                    arr01[i][j] = 1;
+                }
+            }
+            console.log(`arr01 : ${arr01[i]}`);
+        }
+
+        // for(let i = 0; i<arr01.length; i++){
+        //     arr01[i][i] = 1;
+        // }
+        // console.log(`arr01 : ${arr01}`);
+
+        const arr02 = Array.from(Array(2), () => new Array(4).fill('0'));
+        console.log(`arr02 is 0?: ${arr02}`);
+
+        let cnt = 0;
+
+        for(let i = 0; i<arr02.length; i++){
+            for(let j = 0; j<arr02[i].length; j++){
+                cnt++;
+                arr02[i][j] = cnt;
+            }
+            console.log(`arr02 : ${arr02[i]}`);
+        }
+
+        
+        
+    </script>
+</body>
+</html>

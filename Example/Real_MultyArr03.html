@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>실무 2차원 배열 연습문제</title>
+    <style>
+        table, td, th{
+            border-collapse: collapse;
+            border: 1px solid lightgray;
+        }
+        table{
+            width: 300px;
+            height: 200px;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+    <h2>자바스크립트 2차원배열 실습 예제</h2>
+    <div class="container">
+        <h3>1. 달력 만들기 (6X7)</h3>
+        <div id="calendarOut"></div>
+    </div>
+
+    <script>
+        // 데이터
+        let year = 2026 // 년도
+        let month = 9 // 월
+        const weekdays = ['일', '월', '화', '수', '목', '금', '토']; // 요일 (틀[0][x] 차지)
+        const calendar_frame = Array.from(Array(6), () => new Array(7).fill(-1)) // 달력 틀 (날짜는 틀[1][x]부터)
+
+        // 연결부
+        let calendarOut = document.getElementById('calendarOut');
+
+        // 함수
+        function render(){
+            // 변수
+            let result = ''; // 최종 HTML 삽입용
+            let day = 1; // 달력 날짜 삽입용
+            let weekdays_toResult=''; // result 삽입용(요일)
+            let days_toResult=''; // result 삽입용(날짜)
+            // 연산
+            // 달력 틀 첫 줄에 요일 삽입
+            for(let i =0; i<weekdays.length; i++){
+                calendar_frame[0][i] = weekdays[i];
+                weekdays_toResult += `<th>${calendar_frame[0][i]}</th>`
+                
+            }
+            // console.log(calendar_frame);
+
+            // 달력 틀에 숫자 삽입
+            for(let i =1; i<calendar_frame.length; i++){
+                days_toResult += '<tr>'
+                for(let j =0; j<calendar_frame[i].length; j++){
+                    if(day <= 31){
+                        calendar_frame[i][j] = day;
+                        days_toResult += `<td>${day}</td>`;
+                        day++;
+                    }else{
+                        days_toResult += `<td></td>`
+                    }
+                }
+                days_toResult += '</tr>'
+            }
+            // console.log(calendar_frame);
+
+            // HTML 삽입 문구
+            result += 
+                `<table>
+                    <thead>
+                        <tr>
+                            ${weekdays_toResult}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${days_toResult}
+                    </tbody>
+                </table>`
+
+            // 최종 삽입
+            calendarOut.innerHTML = result;
+        }
+
+        // 최초 랜더 1회
+        render();
+    </script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>실무 2차원 배열 연습문제</title>
+    <style>
+        .container,
+        h2{
+            width: 500px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <h2>자바스크립트 2차원배열 실습 예제</h2>
+    <div class="container">
+        <h3>1. 성적표 (총점과 평균 계산)</h3>
+        <div id="scoreOut"></div>
+    </div>
+
+    <script>
+        // 데이터
+        let scores = [[85, 90, 80],[70, 60, 75],[95, 100, 90]];
+
+        // 연결부
+        let scoreOut = document.getElementById('scoreOut');
+
+        // 함수
+        function render(){
+            // 변수
+            let result = ''; // HTML 삽입 문구
+            
+            // 데이터 나누기
+            scores.forEach((rValue, rIndex) => {
+                // 변수 지정 및 초기화
+                let sum = 0; // 총점
+                let avg = 0; // 평균
+                let sum_avg_prt = ''; // HTML 삽입용
+
+                result += `<p>학생 ${rIndex+1} : ` // HTML 삽입
+                rValue.forEach((cValue, cIndex) => {
+                    sum += rValue[cIndex];
+                    // HTML 삽입
+                    sum_avg_prt += `${rValue[cIndex]} ${cIndex == (rValue.length-1) ? ' |' : ', '} ` // HTML 삽입(임시)
+                });
+                avg = sum / rValue.length; // 평균 계산
+                result += `${sum_avg_prt} 총점 : ${sum} 평균 : ${avg.toFixed(2)}</p>` // HTML 삽입(최종 삽입용)
+            });
+
+            // 최종 삽입
+            scoreOut.innerHTML = result;
+        }
+
+        // 최초 랜더 1회
+        render();
+    </script>
+</body>
+</html>

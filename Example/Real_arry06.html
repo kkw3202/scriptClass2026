@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>실무 연습 문제 06</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        ul{
+            list-style: none;
+        }
+
+        body{
+            background-color: #dddddd;
+        }
+        #cart_main{
+            width: 470px;
+            /* border: 1px solid red; */
+            margin: 100px auto;
+            font-size: 20px;
+            padding: 20px;
+            background-color: #fff;
+
+        }
+        
+        #cart_main .product_info,
+        #cart_main .product_info2{
+            display: flex;
+            justify-content: space-between;
+            /* margin-bottom: 20px; */
+            height: 60px;
+            align-items: center;
+            border-radius: 5px;
+            padding: 0 5px;
+            margin: 5px 0;
+        }
+
+        #cart_main .product_info{
+            background-color: #c4c4c4;
+        }
+        #cart_main .product_info2{
+            background-color: #dbdada;
+        }
+
+        #cart_main li p{
+            /* border: 1px solid red; */
+            width: 300px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        #cart_main li p span{
+            /* border: 1px solid red; */
+            font-weight: bold;
+        }
+        
+        #cart_main li p .soldout{
+            color: rgb(189, 11, 11);
+        }
+        
+        #cart_main li button{
+            width: 50px;
+            border: none;
+            border-radius: 10px;
+            height: 35px;
+            color: aliceblue;
+            font-size: larger;
+        }
+        
+        #cart_main li .cnt_minus_button{
+            background-color: rgb(196, 40, 40);
+        }
+        #cart_main li .cnt_plus_button{
+            background-color: rgb(66, 196, 40);
+        }
+        
+        #cart_main p.total_price{
+            margin-top: 20px;
+            color: rgb(20, 143, 20);
+            font-weight: bold;
+            font-size: 25px;
+            /* border: 1px solid red; */
+            width: 230px;
+            background-color: #cccccc;
+            padding: 10px;
+            border-radius: 5px;
+            margin-left: 20px;
+        }
+        </style>
+</head>
+<body>
+    <div id="cart_main">
+        
+    </div>
+
+    <script>
+        // 리스트
+        let product_name = ['티셔츠','양말','모자']; // 상품명
+        let product_price = [15000, 3000, 12000]; // 상품 가격
+        let product_cnt = [1, 1, 1]; // 담은 상품 수량
+
+        // 연결부
+        let cart_main = document.getElementById('cart_main');
+
+        // 함수부
+        // 메인 렌더링
+        function render(){
+            let make_product = '<ul ="cart_list">'; //제품 HTML 문 개시
+            let make_totalPrice = 0; // 총 가격 출력용
+
+            for(let i =0; i<product_name.length; i++){
+                let one_product_total = ''; // 각 가격 출력용
+
+                // 품절 || 각 제품별 총액 계산
+                one_product_total = product_cnt[i] == 0 ? 
+                `class='soldout'>품절` : `>${(product_price[i] * product_cnt[i]).toLocaleString()}원`;
+                
+                // 제품 별 배경 색 나누는 용도 / 제품 HTML 문 개시
+                make_product += i%2!=0 ? `<li class='product_info2'>` : `<li class='product_info'>`;
+
+                // 제품 HTML 문 작성부
+                make_product += 
+                                // 상품 정보(이름, 단가, 수량)
+                                `<p>${product_name[i]} (${(product_price[i].toLocaleString())}원) x ${product_cnt[i]}
+                                <span ${one_product_total.toLocaleString()}</span></p>`+
+                                // 감소 버튼
+                                `<button type='button' class='cnt_minus_button' onclick='minus_pro(${i})'>-</button>`+
+                                // 증가 버튼
+                                `<button type='button' class='cnt_plus_button' onclick='plus_pro(${i})'>+</button>`+
+                                `</li>`
+                // 총 가격 누적
+                make_totalPrice += (product_price[i] * product_cnt[i]);
+            }
+
+            // 제품 HTML 문 종료
+            make_product += `</ul>`
+
+            // 작성된 HTML 문 출력
+            cart_main.innerHTML = make_product + `<p class='total_price'>총 합계 : ${make_totalPrice.toLocaleString()}원</p>`;
+        }
+
+        // 감소 버튼 작동
+        function minus_pro(index_num){
+            let i = index_num;
+            if(product_cnt[i] > 0) product_cnt[i]--;
+            else alert('수량은 0개 이하가 될 수 없습니다')
+            render();
+        }
+
+        // 증가 버튼 작동
+        function plus_pro(index_num){
+            let i = index_num;
+            product_cnt[i]++;
+            render();
+        }
+
+        // 초기 랜더링 용 함수 호출
+        render();
+    </script>
+</body>
+</html>

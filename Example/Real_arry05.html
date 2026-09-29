@@ -42,6 +42,7 @@
     <div id="store_print">
 
     </div>
+
     <script>
 
         //기본값
@@ -58,22 +59,19 @@
             
             for(let i = 0; i<product_name.length; i++){
                 if(i % 2 == 0 || i == 0){
-                    product += `<div class='product_info'>
-                                    <p>${product_name[i]} : ${product_cnt[i]}개</p>
-                                    <button class='mainus' onclick="pro_minus(${i})">-</button>
-                                    <button class='plus' onclick="pro_plus(${i})">+</button>
-                                </div>`
+                    product += `<div class='product_info'>`
+                                    
                 }else{
-                    product += `<div class='product_info2'>
-                                    <p>${product_name[i]} : ${product_cnt[i]}개</p>
-                                    <button class='mainus' onclick="pro_minus(${i})">-</button>
-                                    <button class='plus' onclick="pro_plus(${i})">+</button>
-                                </div>`
+                    product += `<div class='product_info2'>`
                 }
 
-
+                 product += `<p>${product_name[i]} : ${product_cnt[i]}개</p>
+                            <button class='mainus' onclick="pro_minus(${i})">-</button>
+                            <button class='plus' onclick="pro_plus(${i})">+</button>
+                            </div>`
                 sum_cnt += product_cnt[i]
             }
+
             let sum_print = `<span>총 재고 : ${sum_cnt}개</span>`
 
             store_print.innerHTML = product + sum_print;

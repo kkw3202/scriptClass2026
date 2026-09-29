@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>실무 2차원 배열 연습문제</title>
+    <style>
+        table{
+            border-collapse: collapse;
+            width: 300px;
+            height: 300px;
+            text-align: center;
+            border: 1px solid lightgray;
+        }
+        td{
+            border: 1px solid lightgray;
+        }
+        .container{
+            width: 310px;
+            margin: 100px auto;
+        }
+        h2{
+            text-align: center;
+
+        }
+
+    </style>
+</head>
+<body>
+    <h2>자바스크립트 2차원배열 실습 예제</h2>
+    <div class="container">
+        <h3>1. 좌석배치 (5x5)</h3>
+        <div id="seatOut"></div>
+    </div>
+
+    <script>
+        // 입력부
+        let seat_arr = Array.from(Array(5), () => new Array(5).fill(0)); // 좌석 저장 배열
+
+        // 연결부
+        let seatOut = document.getElementById('seatOut'); 
+
+        // 함수
+        function render(){
+            let result = ''; // HTML 삽입용
+            let ctn_seat_num = 0; // 좌석 번호 누적용
+            let seat_toHTML=''; // 좌석 HTML 삽입용
+            // 좌석에 번호 부여
+            let seat_arr_prt = seat_arr.map((rowValue)=>{
+                return rowValue.map((coValue, coIndex)=>{
+                    ctn_seat_num ++
+                    return ctn_seat_num;
+                });
+            });
+            console.log(seat_arr_prt);
+
+            
+            // 좌석 HTML 작성용 for 문
+            for(let i =0; i<seat_arr.length; i++){
+                seat_toHTML += `<tr>`
+                for(let j =0; j<seat_arr[i].length; j++){
+                    seat_toHTML += `<td>${seat_arr_prt[i][j]}</td>`
+                }
+                seat_toHTML += `</tr>`
+            }
+
+            // HTML문 작성
+            result += `<table><tbody>${seat_toHTML}</tbody></table>`
+
+            // HTML문 삽입
+            seatOut.innerHTML = result;
+
+        }
+
+        // 최초 랜더 1회
+        render();
+    </script>
+</body>
+</html>
