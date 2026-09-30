@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>코어객체</title>
+</head>
+<body>
+    <script>
+        // 자바스크립트 객체 종류
+        // 1. 코어객체 : 자바스크립트에 내장된 객체. (설치하지 않고 사용 가능)
+        //              => Array, String, Date, Math (주로 Math.random())
+        // 2. DOM 객체 : HTML의 요소들을 접근/제어하기 위해.
+        //              => doucument, getElementById(), querySekector() 등...
+        // 3. BOM 객체 : 웹 브라우저 전체를 제어하는 객체
+        //              => window, location, navigator, history 등...
+
+        let today = new Date(); // 코어 객체는 반드시 new로 생성한다.
+        console.log(`today : ${today}`);
+        console.log(typeof today);
+
+        let oneDate = new Date(86400000);
+        console.log(`oneDate : ${oneDate}`);
+        // 1sec = 1,000 ms
+        // 1m = 60 * 1,000ms = 60,000ms
+        // 1h = 60 * 60,000ms = 3,600,000ms
+        // 1d = 24 * 3,600,000ms = 86,400,000ms
+
+        // Date(인수) => 인수는 날짜/ 시간을 문자열로 입력
+        let date01 = new Date('september 08, 2025, 14:10:00'); // 월 약어도 가능
+        console.log(`date01 : ${date01}`);
+        
+        let date02 = new Date('2025/09/08/14:10:00');
+        console.log(`date02 : ${date02}`);
+        
+        let date03 = new Date(2025, 8); //(년도, 월) 단, 월은 0~11 이므로 8이면 9월.
+        console.log(`date03 : ${date03}`);
+
+        let date04 = new Date(2025,8,15); //(년도, 월, 일) 단, 월은 0~11 이므로 8이면 9월. 뒤로 시 분 초 추가 가능
+        console.log(`date04 : ${date04}`);
+
+        let now = Date.now(); // Date 객체를 생성하지않고 now() 메소드로 now 출력
+        console.log(`now : ${now / 86400000 / 365}`); // => now() 의 출력값 : 1970.01.01 00:00:00 에서 지금까지 몇 밀리초가 지났는지 출력
+
+        // getFullYear, setFullYear : 시간 출력, 수정
+        let today02 = new Date();
+        // 오늘날짜의 연도만 출력
+        let yaer02 = today02.getFullYear();
+        console.log(`today02의 yaer02 : ${yaer02}`)
+        console.log(typeof yaer02); // number
+
+        // setFullYear() => 년도 수정 => getFullYear() 로 추출
+        let today03 = new Date();
+        today03.setFullYear(2001);
+        let year03 = today03.getFullYear();
+        console.log(`today03의 수정된 년도 : ${year03}`);
+
+        // 당일의 월만 출력
+        let today04 = new Date();
+        let month04 = today04.getMonth()+1;
+        console.log(`month04 의 값 : 8`); 
+        console.log(`+1 한 실제 월 : ${month04}`); 
+        
+        let day04 = today04.getDate();
+        console.log(`day04 : ${day04}`);
+
+        let weekday04 = today04.getDay();
+        console.log(`weekday04의 값 : ${weekday04}`); // : 3, 0-일 부터 시작 3-수.
+
+        let today05 = new Date();
+        let localDay05 = today05.toLocaleDateString();
+        console.log(`localDay05 : ${localDay05}`);
+        let localeTime05 = today05.toLocaleTimeString();
+        console.log(`localeTime05 : ${localeTime05}`);
+
+        let todayWeekday = today05.getDay();
+        // switch (todayWeekday){
+        //     case 0 : todayWeekday = '일'; break;
+        //     case 1 : todayWeekday = '월'; break;
+        //     case 2 : todayWeekday = '화'; break;
+        //     case 3 : todayWeekday = '수'; break;
+        //     case 4 : todayWeekday = '목'; break;
+        //     case 5 : todayWeekday = '금'; break;
+        //     case 6 : todayWeekday = '토'; break;
+        // }
+        console.log(todayWeekday);
+
+        let week = ['일','월','화','수','목','금','토'];
+        console.log(`week[todayWeekday] : ${week[todayWeekday]}`);
+
+        // ------------------------------------------------------
+        // document.write() 는 웹 브라우저가 HTML 문서를 로딩 할 때, 해당 위치의 텍스트 또는 HTML 태그를 그대로 출력해주는 메소드.
+    
+        let today07 = new Date();
+        let todayWeekday07 = today07.getDay();
+        let week07 = ['일','월','화','수','목','금','토'];
+        document.write(today07.getFullYear() +'년</br>');
+        document.write(today07.getMonth() +1 +'월</br>');
+        document.write(today07.getDate() + '일</br>');
+        document.write(today07.getHours() + '시</br>');
+        document.write(today07.getMinutes() + '분</br>');
+        document.write(today07.getSeconds() + '초</br>');
+        document.write(week07[todayWeekday07] + '요일</br>');
+
+        
+    </script>
+</body>
+</html>

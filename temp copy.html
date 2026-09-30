@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            padding: 20px;
+        }
+        table{
+            border-collapse: collapse;
+            border : 1px solid lightgray;
+            width : 300px;
+            height: 300px;
+        }
+        td{
+            border: 1px solid lightgray;
+            text-align: center;
+        }
+        span{
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div id="main">
+
+    </div>
+    <script>
+        let main = document.getElementById('main');
+        let month_dif = 0; // 오늘 날짜와 화면에 그려낼 달의 차이값
+        
+        
+        function display(){
+            let today = new Date(); // 오늘날짜
+            let prtMonth = new Date(today); // 화면에 그려낼 달
+            let lastDay = 0; // 마지막 날짜
+            let startWeek = new Date(prtMonth); // 처음날짜 요일
+            let weekday = ['SUN','MON','TUE','WED','THU','FRI','SAT']; // 일 ~ 토 <배열> 
+            let calendar = Array.from(Array(6), () => new Array(7).fill('0')); // 달력 출력용 빈 배열
+            let result = ''; // 출력용 변수
+
+            prtMonth.setMonth(today.getMonth() + month_dif);
+
+            lastDay = prtMonth.getMonth == 0 || 2 || 4 || 6 || 7 || 9 || 11 ? 31 :
+                        prtMonth.getMonth != 1 ? 30 :
+                        prtMonth.getFullYear % 400 == 0 ? 29 :
+                        prtMonth.getFullYear % 100 == 0 ? 28 :
+                        prtMonth.getFullYear % 4 == 0 ? 29 : 28;
+
+            // startWeek
+            startWeek.setDate(1);
+            startWeek.getDay();
+
+            result += `<table><tr>`;
+
+            let year = prtMonth.getFullYear();
+            let month = prtMonth.getMonth();
+
+
+            console.log(today);
+            console.log(prtMonth);
+            console.log(startWeek + ' : 첫요일 계산 날');
+            console.log(startWeek.getDay() + ' : 첫요일 계산');
+
+            // let month = new Date(today);
+            // 상단에 버튼 2개와 연도/달 표시 하는 단계
+            result += `<div><button onclick = "minus()"><</button> 
+                       ${year}.${month+1}
+                       <button onclick = "plus()">></button></div>`;
+                
+            // 일 ~ 토 주 반복
+            for(let j = 0; j<1; j++){
+                result += `<tr>`;
+                for(let i = 0; i<7; i++){
+                    result += `<td><span>${weekday[i]}</span></td>`;
+                }
+                result += `</tr>`;
+            }
+
+            let num = 1;
+
+            for(let i = 0; i<calendar.length-1; i++){
+                result += `<tr>`;
+                for(let j = 0; j<calendar[i].length; j++){
+                    if(i==0 && j<startWeek.getDay()){
+                        result += `<td></td>`;
+                    }else if(num<lastDay){
+                        calendar[i][j] = ' ';
+                        calendar[i][j]= num;
+                        result += `<td>${calendar[i][j]}</td>`;
+                        num ++;
+                    }else{
+                        result += `<td></td>`;
+                    }
+                    
+                }
+                result += `</tr>`;
+            }
+
+            result += `</table>`;
+            main.innerHTML = result;
+        }
+        
+        function minus(){
+            month_dif --;
+            display();
+        }
+        function plus(){
+            month_dif ++;
+            display();
+        }
+
+
+        display();
+    </script>
+</body>
+</html>

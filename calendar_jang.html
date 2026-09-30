@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>달력</title>
+    <link rel="stylesheet" href="calendar_jang.css">
+    <style>
+        body{
+            padding: 20px;
+        }
+        table{
+            border-collapse: collapse;
+            border : 1px solid lightgray;
+            width : 300px;
+            height: 300px;
+        }
+        td{
+            border: 1px solid lightgray;
+            text-align: center;
+        }
+        span{
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div id="main"></div>
+    <script>
+        let main = document.getElementById('main');
+        
+        // console.log(startWeek);
+        function display(){
+            let today = new Date(); // 오늘날짜
+            let prtMonth = new Date(today); // 화면에 그려낼 달
+            let lastDay = 0; // 마지막 날짜
+            let startWeek = new Date(prtMonth); // 매달의 1일 요일
+            let weekday = ['SUN','MON','TUE','WED','THU','FRI','SAT']; // 일 ~ 토 <배열> 
+            let calendar = Array.from(Array(6), () => new Array(7).fill(' ')); // 달력 출력용 빈 배열
+            let result = ''; // 출력용 변수
+            let month_dif = 0; // 오늘 날짜와 화면에 그려낼 달의 차이값
+        
+            console.log(lastDay);
+    
+            prtMonth.setMonth(today.getMonth + month_dif);
+            lastDay = prtMonth.getMonth == 0 || 2 || 4 || 6 || 7 || 9 || 11 ? 31 :
+                        prtMonth.getMonth != 1 ? 30 :
+                        prtMonth.getFullYear % 400 == 0 ? 29 :
+                        prtMonth.getFullYear % 100 == 0 ? 28 :
+                        prtMonth.getFullYear % 4 == 0 ? 29 : 28;
+
+            result = `<table><tr>`;
+
+            let year = today.getFullYear();
+            let month = today.getMonth();
+
+            // let month = new Date(today);
+            // 상단에 버튼 2개와 연도/달 표시 하는 단계
+            result += `<div><button onclick = "minus()"><</button> 
+                       ${year}.${month}
+                       <button onclick = "plus()">></button></div>`;
+                
+            // 일 ~ 토 주 반복
+            for(let j = 0; j<1; j++){
+                result += `<tr>`;
+                for(let i = 0; i<7; i++){
+                    result += `<td><span>${weekday[i]}</span></td>`;
+                    console.log(weekday[i]);
+                }
+                result += `</tr>`;
+            }
+            
+            // 날짜 반복
+            let num = 1;  // 날짜 시작할 변수
+            // startWeek = prtMonth.getDay().toString();  // 매 달의 1일 요일 구하기 (예: 9월 1일 : 수요일 -> 3)
+            console.log(startWeek.getDay());
+            console.log(weekday[startWeek]);
+
+
+            // console.log(calendar);
+            
+            // if(startWeek.getDay()!=0){
+            //     for(let i = 0; i<1; i++){
+            //         for(let j = 0; j<startWeek; j++){
+            //         result += `<td></td>`;
+            //         }
+            //     }
+            // }
+
+            for(let i = 0; i<calendar.length-1; i++){
+                result += `<tr>`;
+                for(let j = 0; j<calendar[i].length; j++){
+                    if(num<lastDay){
+                        calendar[i][j] = ' ';
+                        calendar[i][j]= num;
+                        // console.log(calendar[i][j]);
+                        result += `<td>${calendar[i][j]}</td>`;
+                        num ++;
+                    }else{
+                        result += `<td></td>`;
+                    }
+                    
+                }
+                result += `</tr>`;
+            }
+
+            result += `</table>`;
+            main.innerHTML = result;
+        }
+
+        display();
+    </script>
+    
+
+</body>
+</html>

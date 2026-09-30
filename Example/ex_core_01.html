@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>코어 기초 문제</title>
+</head>
+<body>
+    <button onclick="showYear()">1. 현재 년도 출력</button>
+    <button onclick="showDay()">2. 오늘 요일 출력</button>
+    <button onclick="showTime()">3. 현재 시간 출력</button>
+    <button onclick="showDates()">4. 하루후, 일주일 후 날짜 출력</button>
+    <button onclick="showWeekend()">5. 요일별 메시지 출력</button>
+    <p id="output"></p>
+
+    <script>
+        // 연결부
+        let output = document.getElementById('output');
+
+        // 데이터
+        let week = ['일','월','화','수','목','금','토']; 
+
+        // 변수
+        let result = '';
+        // 함수
+        function showYear(){
+            let today = new Date();
+            let year = today.getFullYear();
+            result = `올해는 ${year}년 입니다.`;
+            // 최종 출력
+            output.innerText = result;
+        }
+        function showDay(){
+            let today = new Date();
+            let weekday = today.getDay();
+            result = `오늘은 ${week[weekday]}요일 입니다.`
+            // 최종 출력
+            output.innerText = result;
+        }
+        function showTime(){
+            let today = new Date();
+            let timeH = today.getHours();
+            let timeM = today.getMinutes();
+            let timeS = today.getSeconds();
+            result = `현재 시간 ${timeH}:${timeM}:${timeS}`
+            // 최종 출력
+            output.innerText = result;
+        }
+        function showDates(){
+            let today1 = new Date();
+            let today2 = new Date();
+
+            let nextDate = today1.getDate()+1;
+            let next7Date = today2.getDate()+7;
+
+            let set_nextDate = today1.setDate(nextDate);
+            let set_next7Date = today2.setDate(next7Date);
+
+            let get_nextMonth = today1.getMonth();
+            let get_nextDate = today1.getDate();
+            let get_next7Month = today2.getMonth();
+            let get_next7Date = today2.getDate();
+
+            result = `내일은 ${get_nextMonth+1}월 ${get_nextDate}일 일주일 후는 ${get_next7Month+1}월 ${get_next7Date}일 입니다.`;
+           
+            let today = new Date();
+            let tomorrow = new Date(today);
+            tomorrow.setDate(today.getDate()+1);
+
+            let nextweek = new Date(today);
+            tomorrow.setDate(today.getDate()+7);
+           
+            result = `내일은 ${tomorrow.toLocaleDateString()}</br>일주일 후는 ${nextweek.toLocaleDateString()} 입니다.`;
+            // 최종 출력
+            output.innerHTML = result;
+        }
+        function showWeekend(){
+            let today = new Date();
+            let todayWeekday = today.getDay();
+            result = todayWeekday == 0 || 6 ? "열심히 일하는 날!" : "주말이에요!"; 
+            // 최종 출력
+            output.innerText = result;
+        }
+
+        
+
+
+        // 1. "올해는 2026년 입니다." 형식으로 출력
+
+        // 2. "오늘은 화요일 입니다." 형식으로 출력
+
+        // 3. "현재 시간 14:35:50" 형식으로 출력
+
+        // 4. "내일은 1일 일주일 후는 7일 입니다." 형식으로 출력
+
+        // 5. "주말이에요!" / "열심히 일하는 날!" 로 출력
+
+    </script>
+</body>
+</html>
