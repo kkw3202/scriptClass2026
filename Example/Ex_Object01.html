@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>오브젝트 기초 연습문제</title>
+</head>
+<body>
+    <script>
+        // 문1
+        let student = {
+            name:'김길동',
+            age:28,
+            magor:'컴공'
+        }
+        console.log('학생정보 : ',student);
+
+        // 문2
+        let car ={
+            brand:'Hyundai',
+            color:'white',
+            price:2500
+        }
+        console.log(car)
+        car.color='balck';
+        car.price=3000;
+        console.log(car)
+
+        // 문3
+        let item1 = {name:'노트북',price:1000,quantity:1};
+        let item2 = {name:'마우스',price:50,quantity:2};
+        let cart = [item1,item2];
+
+        // 보통 아래와 같이 한번에 사용
+        // 가능하면 id:0, id:1, ... 처럼 식별자 (프라이머리키 같은)를 지정해주는것이 좋다.
+        let cart2 = [
+            {id:0,name:'노트북',price:1000,quantity:1},
+            {id:1,name:'마우스',price:50,quantity:2}
+        ];
+
+        let sum =0;
+        for(let i=0;i<cart2.length;i++){
+            sum+=cart2[i].price*cart2[i].quantity
+        }
+
+        console.log('총금액 : '+sum);
+
+        // 문4
+        let students = [
+            {name: '홍길동', kor: 90, eng: 80, math: 85},
+            {name: '성춘향', kor: 95, eng: 88, math: 92},
+            {name: '이몽룡', kor: 70, eng: 75, math: 80}
+        ];
+
+        function avg_stduent(){
+            let sum = 0;
+            let avg = 0;
+            
+            for(let i=0;i<students.length;i++){
+                sum = students[i].kor + students[i].eng + students[i].math;
+                avg = sum / 3;
+                console.log(`${students[i].name}의 평균 점수 : ${avg.toFixed(2)}`);
+            }
+            
+        }
+        avg_stduent();
+    </script>
+</body>
+</html>

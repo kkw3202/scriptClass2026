@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Object</title>
+</head>
+<body>
+    <script>
+        // 1.객체를 가장 많이 사용하는 리터럴 방식을 작성
+        // 객체이름 = {key:value, key:value, ...}
+        let book={
+            title:'javascript',
+            author:'홍길동',
+            page:500,
+            price:1500,
+        }
+
+        // 객체 접근방법 : 객체이름.property
+        console.log(`${book}`);
+        console.log(book.title);
+        console.log(` `+ book);
+        console.log(` `, book);
+        // `` 또는 + 로 나타낼 때는 javascript가 기본적으로 .tostring() 자동호출, 즉 문자열로 나열 된 상태.
+        // 객체를 출력 할 때는 `기타 내용`, book 의 형식으로 해야함.
+           
+        // 2.생성자 함수 이용해 작성
+        function book01(title, author, page, price){
+            this.title=title;
+            this.author=author;
+            this.page=page;
+            this.price=price;
+        }
+
+        let mybook = new book01('HTML', '개나리', 5000, 15000);
+        console.log(mybook);
+
+        // 객체의 프로퍼티로 함수 사용 가능
+        let book2={
+            title:'CSS',
+            author:'진달래',
+            page:30,
+            price:11500,
+            info:function(){
+                alert(`${this.title}책의 분량은 ${this.page}이다.`);
+            }
+        }
+
+        book2.info();
+    </script>
+</body>
+</html>

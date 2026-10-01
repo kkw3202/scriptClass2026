@@ -1,0 +1,141 @@
+@charset "UTF-8";
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* border: 1px solid red; */
+}
+
+ul{
+    list-style: none;
+}
+
+.contaner{
+    width: 900px;
+    height: 700px;
+    margin: 100px auto;
+    display: flex;
+    border: 2px solid green;
+    position: relative;
+}
+
+
+form{
+    width: 30%;
+}
+
+.menu{
+    width: 70%;
+    padding: 100px 30px 30px 30px;
+    /* border: 1px solid red; */
+    height: 600px;
+    /* border: 1px solid red; */
+    /* overflow: hidden; */
+}
+
+.menu #guide{
+    position: absolute;
+    /* border: 1px solid red; */
+    top: 30px;
+    width: 625px;
+    height: 70px;
+}
+
+.menu #menu_wrap{
+    width: 610px;
+    height: 95%;
+}
+.menu #menu_wrap #menuList{
+    overflow: auto;
+    height: 100%;
+    /* border: 1px solid yellow; */
+}
+
+.menu #menu_wrap #menuList .product{
+    background-color: rgb(236, 161, 22);
+    width: 20%;
+    display: inline-block;
+    margin: 10px 2.5%;
+}
+.menu #menu_wrap #menuList .product img{
+    width: 80px;
+}
+
+.order{
+    position: relative;
+}
+
+.order #cart_wrap{
+    position: absolute;
+    right: 0;
+    height: 595px;
+    width: 100%;
+    top: 11%;
+    z-index: 1;
+    padding: 30px 10px;
+    background-color: rgb(3, 90, 3);
+    color: #fff;
+}
+
+.order #cart_wrap #cartList{
+    margin : 10px 1px 0px 5px;
+    background-color: rgb(4, 68, 4);
+    padding: 5px 1px;
+    height: 90%;
+    overflow: auto;
+}
+.order #cart_wrap #cartList .cart_product{
+    text-align: right;
+    font-size: 14px;
+    border-bottom: 1px solid #fff;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.order #cart_wrap #cartList .cart_product button{
+    width: 20px;
+    border: none;
+    height: 20px;
+}
+.order #cart_wrap #cartList .cart_product .del_btn{
+    background-color: rgb(168, 55, 55);
+}
+
+form footer{
+    position: absolute;
+    bottom : 0%;
+    width: 896px;
+    height: 100px;
+    left: 0;
+    border-top: 1px solid green;
+    z-index: 2;
+}
+
+form footer #pay{
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 20px;
+    width: 30%;
+    /* border: 1px solid red; */
+    justify-self: right;
+}
+
+form footer #pay p{
+    border-right: 1px solid green;
+    padding-right: 25px;
+}
+
+form footer #pay button{
+    cursor: pointer;
+    width: 70px;
+    height: 30px;
+    border: none;
+    background-color: rgb(255, 94, 0);
+    border-radius: 5px;
+}
+
+
