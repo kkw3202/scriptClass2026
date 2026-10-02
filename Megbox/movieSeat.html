@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>메가박스 예매</title>
+    <link rel="stylesheet" href="movie.css">
+</head>
+<body>
+    <section class="container">
+            <h1>빠른예매</h1>
+            <form action="#" method="post">
+                <div class="reset">
+                    <h2>관람인원선택</h2>
+                    <button class="reste_btn"><img src="images/refresh.svg" alt="초기화"/>초기화</button>
+                </div>
+                <ul class="mans">
+                    <li class="man">
+                        <label>성인</label>
+                        <button class="minus_btn" onclick="minus()">-</button>
+                        <span class="adult_cnt_prt">0</span>
+                        <button class="plus_btn" onclick="plus()">+</button>
+                    </li>
+                    <li class="man">
+                        <label>청소년</label>
+                        <button class="minus_btn" onclick="minus()">-</button>
+                        <span class="child_cnt_prt">0</span>
+                        <button class="plus_btn" onclick="plus()">+</button>
+                    </li>
+                </ul>
+                <div class="seat_wrap">
+                    <div class="seat_row"></div>
+                    <table>
+                        <tbody class="seats"></tbody>
+                    </table>
+                </div>
+            <ul class="info_wrap">
+                <li class="aboutMovie"></li>
+                <li class="aboutTheater"></li>
+                <li class="aboutselect"></li>
+                <li class="aboutPrice"></li>
+                <li class="btn_wrap">
+                    <button onclick="notfound()">이전</button>  <!-- 원래 영화, 영화관 선택으로 가야하지만, 여기서는 alter 띄울 예정 -->
+                    <button onclick="notfound()" class="next_btn" type="submit">다음</button>  <!-- 원래 결제화면으로 가야하지만, 여기서는 alter 띄울 예정 -->
+                </li>
+            </ul>
+        </form>
+    </section>
+
+    <!-- 
+    영화관 좌석예매
+
+        1. 화면 그리기
+            ㄱ. 2차원 배열로 좌석(데이터) 지정
+            ㄴ. 좌석에 넣을 숫자는 [i][j] 에서 i가 바뀔때 마다 1로 초기화
+            ㄷ. A B C D ... 은 별도 배열.
+            ㄹ. 형식은 <ul><li><div> 행번호 <ul><li> 좌석들 ... </> // ul li 대신 테이블!
+            ㅁ. 예매된 좌석, 선택되지않은 좌석, 선택된 좌석 구분
+
+            ㅂ. 우측 창에는<div>관람가, 제목, 2d여부</div><div>선택된 영화관, 몇관, 날짜, 시간, 포스터</div>
+                <div>좌석이미지 안내, 선택한 좌석</div><div>최종금액</div><div>이전, 다음 버튼</div>이 포함
+            ㅅ. 좌측 창에서는 <div>각 연령별 인수 조정</div><div>상단에서 규정한 좌석<.div>이 포함
+
+        2. 좌석 선택
+            ㄱ. 2명 이상일 경우, 2석 연석이 가능하면 연석으로. 안되면 단석.
+                ㄱ-1. 해당 구역(예매 가능한 연석)중 의, 예매 가능한 좌석중 가장 첫 번호와 +1한 자리를 동시예매.
+                ㄱ-2. 단, 해당 구역의 맨 오른쪽 자리라면 -1한 번호와 함께 선택
+            
+            ㄴ. 동시에 최대 8인까지 예매가능.
+                ㄴ-1. 좌석선택은 2명씩, ㄱ의 조건을 따라서
+                ㄴ-2. 넘기려하면 얼랏 창 띄우기
+
+            ㄷ. 1인 예매의 경우, 연석으로 3자리 이상 비어있다면 한자리 걸러 한자리씩 선택불가.
+                ㄷ-1. 단, 마지막 4자리가 연석으로 비어있다면 가운데 2자리가 선택불가. 
+
+        3. 데이터 관리
+            ㄱ. 좌석은 2차원배열. 표기되는 값과 무관하게 내부 데이터 상 번호는 0~99, 예매여부
+            ㄴ. 출력 할 때는 [i][j] 값으로, 예를들어 i=0 이면 A, + (j+1) 값으로 출력.
+            
+            ㄷ. 예매용 임시 저장공간(선택한 좌석 담아둘) 필요.
+
+        4. 생략할 것
+            ㄱ. 출입구, 스크린 선, 장애인석. 
+    -->
+    <script>
+        // DOM 연결부
+        let adult_cnt_prt = document.querySelector('.adult_cnt_prt'); // 성인 숫자 표시 // innerText
+        let child_cnt_prt = document.querySelector('.child_cnt_prt'); // 청소년 숫자 표시 // innerText
+        let seats = document.querySelector('.seats'); // 좌석 그리기 // innerHTML // 테이블
+        let seat_row = document.querySelector('.seat_row'); // 좌석표의 A B C D ... 그리기 // innerHTML
+        let aboutMovie = document.querySelector('.aboutMovie'); // 영화 정보띄우기 // innerHTML
+        let aboutTheater = document.querySelector('.aboutTheater'); // 영화관 정보띄우기 // innerHTML // 영화 포스터도 넣기
+        let aboutselect = document.querySelector('.aboutselect'); // 좌석 정보띄우기 // innerHTML 
+        let aboutPrice = document.querySelector('.aboutPrice'); // 결제금액 정보띄우기 // innerHTML
+
+        // 전역 변수 선언부
+        let adult_cnt = 0;
+        let child_cnt = 0;
+        let num = 1; // 좌석 (저장용)번호 부여용
+        let result_seats = '';
+        let result_seat_row = '';
+        let result_aboutMovie = '';
+        let result_aboutTheater = '';
+        let result_aboutselect = '';
+        let result_aboutPrice = '';
+        let totalPrice = 0;
+        
+        // (더미) 데이터 선언부
+        let seat_data = Array.from(Array(10), () => new Array(10).fill(0));
+        let seat_row_data = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L' ,'M' ,'N' ,'O', 'P'];
+        let aboutMovie_data = [{age:15, title:'부활남:더 레드', howToShow:'2D'}];
+        let aboutTheater_data = [{name:'대전중앙로', room:'8관 [Laser]', date:'2026.10.02(금)',time:'16:10~18:01'}];
+        let seat_nowChoose = new Array(8).fill('-'); // 지금 선택한 좌석 정보 담을 배열
+
+        // 데이터 기본 값 주기
+        for(let i = 0; i<seat_data.length; i++){
+            for(let j = 0; j<seat_data[i].length; j++){
+                if(num % 2 != 0){
+                    seat_data[i][j] = {id:num, is_sell:1}; // 1이면 예매가능, -1 이면 예매불가 // 0이면 1인 예매 불가
+                }else{
+                    seat_data[i][j] = {id:num, is_sell:0};
+                }
+                num++;
+            }
+        }
+        // console.log(seat_data[0][1].is_sell);
+        // for(let i = 0; i<seat_data.length; i++){
+        //     for(let j = 1; j<seat_data[i].length; j++){
+        //         if(befor == 1 && after == 1){
+        //             seat_data[i][j].is_sell = 0;
+        //         }
+        //     }
+        // }
+        
+
+        console.log(seat_data[0])
+        // 함수 선언부
+        // 화면 띄우기
+        function rander(){
+            // 지역 변수 선언부
+            // HTML 출력용 변수 묶음
+                seat_row_rander();
+                seat_rander();
+                aboutMovie_rander();
+                aboutTheater_rander();
+                aboutselect_rander();
+                aboutPrice_rander();
+                let temp_seat = new Array(); // 선택된 좌석 정보 저장
+                
+                
+            // 최종 출력부
+            adult_cnt_prt.innerText = adult_cnt;
+            child_cnt_prt.innerText = child_cnt;
+            seats.innerHTML = result_seats;
+            seat_row.innerHTML = result_seat_row;
+            aboutMovie.innerHTML = result_aboutMovie;
+            aboutTheater.innerHTML = result_aboutTheater;
+            aboutselect.innerHTML =  result_aboutselect;
+            aboutPrice.innerHTML = result_aboutPrice;
+            seat_hover_rander();
+        }
+
+        function seat_rander(){
+            result_seats = ''
+            for(let i = 0; i<seat_data.length; i++){
+                let num = 1;
+                for(let j = 0; j<seat_data[i].length; j++){
+                    result_seats += `<tr><td>`
+                    if(adult_cnt + child_cnt > 1 || adult_cnt + child_cnt == 0){
+                        if(seat_data[i][j].is_sell >= 0){
+                            result_seats+=`${num}`
+                        }else{
+                            result_seats+=`<img src='images/예매완료.png' alt='좌석상태이미지' />`
+                        }
+                    }else{
+                        if(seat_data[i][j].is_sell == 1){
+                            result_seats+=`${num}`
+                        }else if (seat_data[i][j].is_sell == -1){
+                            result_seats+=`<img src='images/예매완료.png' alt='좌석상태이미지' />`
+                        }else{
+                            result_seats+=`<img src='images/선택불가.png' alt='좌석상태이미지' />${num}`
+                        }
+                    }
+                    num++;
+                    result_seats += '</td></tr>'
+                }
+            }
+        }
+
+        function seat_hover_rander(){
+
+        }
+
+        function seat_row_rander(){
+            result_seat_row = '';
+            for(let i =0; i<seat_data.length; i++){
+                result_seat_row += `<p>${seat_row_data[i]}</p>`;
+            }
+        }
+
+        // 원래는 매개변수 받아와야 함
+        function aboutMovie_rander(){
+            result_aboutMovie = '';
+            result_aboutMovie += `<span>${aboutMovie_data[0].age}</span><h2>${aboutMovie_data[0].title}</h2><p>${aboutMovie_data[0].howToShow}</p>`;
+        }
+        
+        // 원래는 매개변수 받아와야 함
+        function aboutTheater_rander(){
+            result_aboutTheater = ''
+            result_aboutTheater += `<p>${aboutTheater_data[0].name}</p><p>${aboutTheater_data[0].room}</p><p>${aboutTheater_data[0].date}</p>
+                                    <select><option>${aboutTheater_data[0].time}</option></select>`
+
+
+        }
+        
+        // 원래는 매개변수 받아와야 함
+        function aboutselect_rander(){
+            result_aboutselect = '';
+            let how_seat_type = ['선택','예매완료','선택불가','일반'];
+            result_aboutselect += `<ul class='show_how'>`;
+            for(let i = 0; i < how_seat_type.length; i++){
+                result_aboutselect += `<li><img src='images/${how_seat_type[i]}.png' alt=''/></li>`
+            }
+            result_aboutselect += `</ul>`;
+
+            result_aboutselect += `<ul class='seat_now'>`;
+                for(let i = 0; i < 8; i++){
+                     result_aboutselect += `<li>${seat_nowChoose[i]}</li>`
+                }
+
+            
+        }
+        
+        function aboutPrice_rander(){
+            result_aboutPrice = '';
+            result_aboutPrice += `<p>최종결제금액</p><p><span>${totalPrice}</span>원</p>`
+        }
+
+        rander();
+    </script>
+</body>
+</html>
