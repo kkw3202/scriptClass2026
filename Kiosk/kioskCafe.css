@@ -6,9 +6,19 @@
     /* border: 1px solid red; */
 }
 
+body{
+    font-family: sans-serif;
+}
+
 ul{
     list-style: none;
 }
+
+button,
+.menu #menu_wrap #menuList{
+    cursor: pointer;
+}
+
 
 .contaner{
     width: 900px;
@@ -17,6 +27,7 @@ ul{
     display: flex;
     border: 2px solid green;
     position: relative;
+    background-color: #EFEFEF;
 }
 
 
@@ -26,7 +37,8 @@ form{
 
 .menu{
     width: 70%;
-    padding: 100px 30px 30px 30px;
+    /* width: fit-content; */
+    padding: 100px 0px 30px 20px;
     /* border: 1px solid red; */
     height: 600px;
     /* border: 1px solid red; */
@@ -41,24 +53,68 @@ form{
     height: 70px;
 }
 
+.menu #guide h1{
+    font-size: 25px;
+}
+.menu #guide p{
+    color: #969696;
+}
+
 .menu #menu_wrap{
     width: 610px;
     height: 95%;
 }
+
+.menu #menu_wrap h1{
+    background-color: #bdbcbc;
+    margin: 10px 0;
+    padding: 2px 5px;
+    font-size: 17px;
+    width: fit-content;
+    border-radius: 5px;
+}
+
 .menu #menu_wrap #menuList{
     overflow: auto;
     height: 100%;
+    /* border: 1px solid red; */
     /* border: 1px solid yellow; */
 }
 
 .menu #menu_wrap #menuList .product{
-    background-color: rgb(236, 161, 22);
-    width: 20%;
+    background-color: #26A69A;
+    width: 23%;
     display: inline-block;
-    margin: 10px 2.5%;
+    margin: 5px 1%;
+    height: fit-content;
+    text-align: center;
+    border-radius: 5px;
+    /* padding: 20px 5px 10px 5px; */
+    padding: 12px;
+    color: white;
+    font-size: 15px;
 }
+
+.menu #menu_wrap #menuList .product .price{
+    background-color: #333;
+    text-align: center;
+    display: inline-block;
+    border-radius: 5px;
+    margin-top: 5px;
+    padding: 5px 10px;
+}
+.menu #menu_wrap #menuList .product .price span{
+    font-size: 15px;
+    font-weight: bold;
+}
+.menu #menu_wrap #menuList .product .name{
+    overflow: visible;
+    white-space: nowrap;
+}
+
 .menu #menu_wrap #menuList .product img{
     width: 80px;
+    border-radius: 50%;
 }
 
 .order{
@@ -72,35 +128,56 @@ form{
     width: 100%;
     top: 11%;
     z-index: 1;
-    padding: 30px 10px;
-    background-color: rgb(3, 90, 3);
-    color: #fff;
+    padding: 50px 10px 30px 15px;
+    background-color: #263238;
+    color: #FFFFFF;
 }
 
 .order #cart_wrap #cartList{
     margin : 10px 1px 0px 5px;
-    background-color: rgb(4, 68, 4);
-    padding: 5px 1px;
+    background-color: #1E524D;
+    padding: 20px 1px;
     height: 90%;
     overflow: auto;
+    border-radius: 10px;
+}
+
+.order #cart_wrap #cartList p{
+    margin-bottom: 10px;
 }
 .order #cart_wrap #cartList .cart_product{
-    text-align: right;
+    text-align: left;
     font-size: 14px;
-    border-bottom: 1px solid #fff;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.22);
     margin-bottom: 10px;
-    padding-bottom: 5px;
+    padding-bottom: 10px;
     margin-left: 10px;
     margin-right: 10px;
 }
 
 .order #cart_wrap #cartList .cart_product button{
-    width: 20px;
+    width: 40px;
     border: none;
-    height: 20px;
+    height: 30px;
+    border-radius: 5px;
+    background-color: #FFFFFF;
+    color: #00695C;
+    font-weight: bold;
 }
 .order #cart_wrap #cartList .cart_product .del_btn{
     background-color: rgb(168, 55, 55);
+    color: #212121;
+    width: 30px;
+    float: right;
+}
+.order #cart_wrap #cartList .cart_product span{
+    vertical-align: middle;
+    display: inline-block;
+    height: 30px;
+    background-color: #F5F5F5;
+    color: #212121;
+    padding: 4px 10px 0px 10px;
+    border-radius: 5px;
 }
 
 form footer{
@@ -119,23 +196,30 @@ form footer #pay{
     justify-content: space-around;
     align-items: center;
     font-size: 20px;
-    width: 30%;
+    width: 40%;
     /* border: 1px solid red; */
     justify-self: right;
 }
 
 form footer #pay p{
     border-right: 1px solid green;
-    padding-right: 25px;
+    padding-right: 20px;
+}
+form footer #pay p span{
+    color: rgb(218, 28, 28);
+    font-weight: bold;
+    font-size: 25px;
 }
 
 form footer #pay button{
     cursor: pointer;
-    width: 70px;
-    height: 30px;
+    width: 90px;
+    height: 45px;
     border: none;
     background-color: rgb(255, 94, 0);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     border-radius: 5px;
+    color: #fff;
 }
 
 
