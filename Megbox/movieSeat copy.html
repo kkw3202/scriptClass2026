@@ -118,17 +118,24 @@
         let seat_row_data = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L' ,'M' ,'N' ,'O', 'P'];
         let aboutMovie_data = [{age:15, title:'부활남:더 레드', howToShow:'2D'}];
         let aboutTheater_data = [{name:'대전중앙로', room:'8관 [Laser]', date:'2026.10.02(금)',time:'16:10~18:01'}];
-        let seat_nowChoose = new Array(); // 지금 선택한 좌석 정보 담을 배열
+        let seat_nowChoose = new Array(8).fill('-'); // 지금 선택한 좌석 정보 담을 배열
 
         // 데이터 기본 값 주기
         for(let i = 0; i<seat_data.length; i++){
             for(let j = 0; j<seat_data[i].length; j++){
-                    j != seat_data[i].length-1 ? // 줄이 바뀌는 타이밍에는 num +1000 으로 구분
-                    seat_data[i][j] = {id:num, is_sell:1}: // 1이면 예매가능, -1 이면 예매불가 // 0이면 1인 예매 불가
+
+                j != seat_data[i].length-1 ? // 줄이 바뀌는 타이밍에는 num +1000 으로 구분
+                    seat_data[i][j] = {id:num, is_sell:1}: // 1이면 예매가능, -1 이면 예매됨 // 0이면 1인 예매 불가
                     seat_data[i][j] = {id:(num+1000), is_sell:1};
+
                 num++;
-                }
             }
+        }
+
+
+
+        console.log(seat_data[0][1]);
+        console.log(seat_data);
         
         
 
@@ -136,7 +143,7 @@
         // 화면 띄우기
         function rander(){
             // 지역 변수 선언부
-            // HTML 출력용 변수 묶음      
+            // HTML 출력용 변수 묶음
                 set_cnaNot_solo();
                 seat_row_rander();
                 seat_rander();
@@ -147,6 +154,7 @@
                 let temp_seat = new Array(); // 선택된 좌석 정보 저장
                 adult_cnt_prt.innerText = poeple_cnt[0];
                 child_cnt_prt.innerText = poeple_cnt[1];
+                seat_hover_rander();
                 
             // 최종 출력부
             adult_cnt_prt.innerText = poeple_cnt[0];
@@ -187,8 +195,9 @@
                 }
                 result_seats += `</tr>`
             }
+            console.log(seat_data[0][1]);
+            console.log(seat_data);
         }
-
 
 
         function seat_hover_rander(){
@@ -209,16 +218,6 @@
                         });
                         color_selSeat[i].addEventListener('click', ()=>{
                             color_selSeat[i].classList.toggle('selected');
-                            let pushing = selSeat_naming(i);
-                            if(is_selected(i)){
-                                if(max_8()){
-                                    seat_nowChoose.unshift({id:i, name:pushing});
-                                }
-                            }
-                            else del_selected(i);
-                            // console.log(seat_nowChoose);
-                            aboutselect_rander();
-                            aboutselect.innerHTML = result_aboutselect;
                         });
                     }
                 }
@@ -251,57 +250,11 @@
                             color_selSeat[i+can_selResult].classList.remove('select');
                         });
                         color_selSeat[i].addEventListener('click', ()=>{
-                            color_selSeat[i+can_selResult].classList.toggle('selected'); // ai 도움 받음. click remove 미작동 원인을 물어봤는데, 순서 이슈. 추천받은 (토글)방법으로 바꿈.
-                            let pushing = selSeat_naming(i+can_selResult);
-                            if(is_selected(i+can_selResult)){
-                                if(max_8()){
-                                    seat_nowChoose.unshift({id:i, name:pushing});
-                                }
-                            }
-                            else del_selected(i);
-                            console.log(seat_nowChoose);
-                            aboutselect_rander();
-                            aboutselect.innerHTML = result_aboutselect;
+                            color_selSeat[i+can_selResult].classList.toggle('selected'); // ai 도움 받음. click remove 미작동 원인을 물어봤는데, 순서 이슈. 추천받은 방법으로 바꿈.
                         });
                     }
                 }
             }
-        }
-
-        function max_8(){
-            if(seat_nowChoose.length<8) return true;
-            else return false;
-        }
-
-        function del_selected(data_id){
-            let ids = seat_nowChoose.map((value)=>{
-                return value.id;
-            });
-
-            let delNum = ids.indexOf(data_id);
-
-            seat_nowChoose.splice(delNum, 1);
-            
-        }
-
-        function is_selected(data_id){
-
-            let serach = seat_nowChoose.map((value) => {
-                return value.id
-            });
-
-            let result = serach.indexOf(data_id) == -1 ? true : false;
-            return result
-        }
-
-        function selSeat_naming(data_id){
-            let result = '';
-            let col = data_id % 10;
-            let row = (data_id - col) / 10;
-
-            result = seat_row_data[row]+(col+1);
-            return result;
-
         }
 
         function seat_row_rander(){
@@ -332,18 +285,14 @@
             let how_seat_type = ['선택','예매완료','선택불가','일반'];
             result_aboutselect += `<ul class='show_how'>`;
             for(let i = 0; i < how_seat_type.length; i++){
-                result_aboutselect += `<li><img src='images/${how_seat_type[i]}.png' alt=''/>
-                                        <label>${how_seat_type[i]}</label></li>`
+                result_aboutselect += `<li><img src='images/${how_seat_type[i]}.png' alt=''/></li>`
             }
             result_aboutselect += `</ul>`;
 
             result_aboutselect += `<ul class='seat_now'>`;
-            result_aboutselect += `<li class='seat_now_info'><h3>선택좌석</h3></li>`;
                 for(let i = 0; i < 8; i++){
-                    seat_nowChoose[i] == undefined ? result_aboutselect += `<li>-</li>` :
-                    result_aboutselect += `<li>${seat_nowChoose[i].name}</li>`
+                     result_aboutselect += `<li>${seat_nowChoose[i]}</li>`
                 }
-            result_aboutselect += `</ul>`;
 
             
         }
@@ -355,12 +304,16 @@
 
         function set_cnaNot_solo(){
             for(let i = 0; i<seat_data.length; i++){
-                for(let j = 0; j<seat_data[i].length; j++){
-                    if(seat_data[i][j].is_sell != -1){
-                    seat_data[i][j].is_sell = 1;
+                    for(let j = 0; j<seat_data[i].length-4; j++){
+                        let keepDoing = true;   
+                        for(let k = 1; k<=3; k++){
+                            if(seat_data[i][j+k].is_sell != -1) keepDoing = false;
+                            if(keepDoing == true){
+                                seat_data[i][j+1].is_sell = 0
+                                seat_data[i][j+2].is_sell = 0
+                        }
                     }
                 }
-
             }
         }
 

@@ -14,7 +14,7 @@
                 <div class="left_wrap">
                     <div class="reset">
                         <h2>관람인원선택</h2>
-                        <button class="reste_btn"><img src="images/refresh.svg" alt="초기화"/>초기화</button>
+                        <button class="reste_btn" type="button" onclick="reset_sel()"><img src="images/refresh.svg" alt="초기화"/>초기화</button>
                     </div>
                     <div class="ticket_wrap">
                         <ul class="mans">
@@ -111,7 +111,7 @@
         let result_aboutselect = '';
         let result_aboutPrice = '';
         let totalPrice = 0;
-        
+
         // (더미) 데이터 선언부
         let seat_data = Array.from(Array(10), () => new Array(10).fill(0));
         let poeple_cnt = [0, 0]; // 인원수 카운트
@@ -179,7 +179,7 @@
                         }else if (seat_data[i][j].is_sell == -1){
                             result_seats+=`<img src='images/예매완료.png' alt='좌석상태이미지' />`
                         }else{
-                            result_seats+=`<img src='images/선택불가.png' alt='좌석상태이미지' />${num}`
+                            result_seats+=`<img class='canNotSelect' src='images/선택불가.png' alt='좌석상태이미지' /><p>${num}</p>`
                         }
                     }
                     num++;
@@ -199,8 +199,8 @@
 
                     let col = i % 10;
                     let row = (i - col) / 10;
-
-                    if(seat_data[row][col].is_sell != -1){
+                    let can_solo = poeple_cnt[0] + poeple_cnt[1] != 1 ? true : seat_data[row][col].is_sell == 0 ? false : true;
+                    if(seat_data[row][col].is_sell != -1 && can_solo){
                         color_selSeat[i].addEventListener('mouseenter', ()=>{
                             color_selSeat[i].classList.add('select');
                         });
@@ -208,58 +208,22 @@
                             color_selSeat[i].classList.remove('select');
                         });
                         color_selSeat[i].addEventListener('click', ()=>{
-                            color_selSeat[i].classList.toggle('selected');
-                            let pushing = selSeat_naming(i);
-                            if(is_selected(i)){
-                                if(max_8()){
-                                    seat_nowChoose.unshift({id:i, name:pushing});
+                            if(poeple_cnt[0]+poeple_cnt[1] > seat_nowChoose.length){
+                                color_selSeat[i].classList.toggle('selected');
+                                let pushing = selSeat_naming(i);
+                                if(is_selected(i)){
+                                    if(max_8()){
+                                        seat_nowChoose.unshift({id:i, name:pushing});
+                                    }
                                 }
-                            }
                             else del_selected(i);
+                            }else if (is_selected(i) == false) {
+                                 color_selSeat[i].classList.remove('selected');
+                                 del_selected(i);
+                            }else alert('인원수 만큼 선택하셨습니다');
+
+
                             // console.log(seat_nowChoose);
-                            aboutselect_rander();
-                            aboutselect.innerHTML = result_aboutselect;
-                        });
-                    }
-                }
-            }
-            if(total_people >= 2){
-                for(let i = 0; i<color_selSeat.length; i++){
-
-                    let col = i % 10;
-                    let row = (i - col) / 10; // ai 도움 받음 이하 원본
-                    // let row = i / 10;
-                    // let col = i % 10;
-                    // 자바는 정수로 데이터를 지정해서 / 사용시 소숫점 아랫자리를 버린 값만 나오지만, 자바스크립트는 / 의 결과가 소수로 나옴
-
-                    let can_sel = col >= seat_data[0].length-1 ? '' :
-                        seat_data[row][col+1].is_sell != -1 ? 1 : -1 ; 
-                    
-                    let can_selLast = seat_data[row][col].id < 1000 ? '' :
-                    seat_data[row][col].is_sell != -1 ? -1 : '' ;
-
-                    let can_selFirst = seat_data[row][1].is_sell == -1 ? 0 : 1;
-                    
-                    let can_selResult = seat_data[row][col].id > 1000 ?  can_selLast : 
-                    col % 10 == 0 ? can_selFirst : can_sel;
-
-                    if(seat_data[row][col].is_sell != -1){
-                        color_selSeat[i].addEventListener('mouseenter', ()=>{
-                            color_selSeat[i+can_selResult].classList.add('select');
-                        });
-                        color_selSeat[i].addEventListener('mouseleave', ()=>{
-                            color_selSeat[i+can_selResult].classList.remove('select');
-                        });
-                        color_selSeat[i].addEventListener('click', ()=>{
-                            color_selSeat[i+can_selResult].classList.toggle('selected'); // ai 도움 받음. click remove 미작동 원인을 물어봤는데, 순서 이슈. 추천받은 (토글)방법으로 바꿈.
-                            let pushing = selSeat_naming(i+can_selResult);
-                            if(is_selected(i+can_selResult)){
-                                if(max_8()){
-                                    seat_nowChoose.unshift({id:i, name:pushing});
-                                }
-                            }
-                            else del_selected(i);
-                            console.log(seat_nowChoose);
                             aboutselect_rander();
                             aboutselect.innerHTML = result_aboutselect;
                         });
@@ -293,6 +257,15 @@
             let result = serach.indexOf(data_id) == -1 ? true : false;
             return result
         }
+
+        // function is_canSolo(data_id){
+        //     let serach = seat_nowChoose.map((value) => {
+        //         return value.id
+        //     });
+
+        //     let result = serach.indexOf(data_id) == 0 ? true : false;
+        //     return result
+        // }
 
         function selSeat_naming(data_id){
             let result = '';
@@ -360,8 +333,37 @@
                     seat_data[i][j].is_sell = 1;
                     }
                 }
+                // 연속 1인 자리 구하기
+                let cnt_now = 0; // 검사 시작 인덱스 값
+                for(let j = 0; j<seat_data[i].length; j++){
+                    if(cnt_now >= seat_data[i].length) break;
+                    if(seat_data[i][cnt_now].is_sell == -1) cnt_now++; // 다음 값으로 검사 이동
+                    else { //검사
+                        let cnt_end = cnt_now; // 0칸
+                        while(cnt_end < seat_data[i].length && seat_data[i][cnt_end].is_sell != -1){
+                            cnt_end++;
+                        }
+                        let continues = cnt_end - cnt_now
+                        while(continues >= 3 && continues != 4){
+                            seat_data[i][cnt_now+1].is_sell = 0;
+                            cnt_now += 2;
+                            continues -= 2;
+                        }
+                        if(continues == 4){
+                            seat_data[i][cnt_now+1].is_sell = 0;
+                            seat_data[i][cnt_now+2].is_sell = 0;
+                        }
+                        cnt_now = cnt_end;
+                    }
+                }
 
             }
+        }
+
+        function reset_sel(){
+            poeple_cnt = [0, 0];
+            seat_nowChoose = new Array();
+            rander();
         }
 
         // 인원수 가감

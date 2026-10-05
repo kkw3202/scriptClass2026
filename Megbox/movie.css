@@ -1,1 +1,307 @@
 @charset "UTF-8";
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+ul{
+    list-style: none;
+}
+
+button{
+    cursor: pointer;
+}
+
+.container{
+    /* border: 1px solid red;    */
+    width: 1100px;
+    margin: 100px auto;
+}
+
+.container h1{
+    margin: 20px 0;
+    font-weight: 400;
+}
+
+.container form{
+    display: flex;
+    width: 100%;
+    height: 520px;
+    /* border: 1px solid red; */
+}
+
+.container .left_wrap{
+    flex: 9;
+    padding-right: 25px;
+    /* border: 1px solid red; */
+}
+
+.container .info_wrap{
+    flex: 3;
+    /* border: 1px solid #d3d3d3; */
+    border-radius: 10px;
+    padding: 0 20px;
+    background-color: #111111cc;
+    color:#fff;
+    position: relative;
+    /* border: 1px solid red; */
+}
+
+.container .left_wrap .reset{
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid #111;
+    height: 50px;
+    align-items: center;
+    /* border: 1px solid red; */
+}
+
+.container .left_wrap .reset h2{
+    font-weight: 400;
+    font-size: 22px;
+}
+
+.container .left_wrap .reset button{
+    height: 70%;
+    padding: 5px;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border: 1.5px solid #d3d3d3;
+    border-radius: 5px;
+}
+
+.container .left_wrap .reset button img{
+    width: 15px;
+    margin: 0 2px;
+}
+
+.container .left_wrap .ticket_wrap{    
+    border: 1px solid #d3d3d3;
+}
+
+.container .left_wrap .ticket_wrap .mans{
+    display: flex;
+    padding: 10px;
+    background-color: #e7e7e7;
+}
+
+.container .left_wrap .ticket_wrap .mans .man{
+    display: flex;
+    margin-right: 40px;
+    height: 30px;
+    align-items: center;
+    /* border: 1px solid red; */
+}
+
+.container .left_wrap .ticket_wrap .mans .man label{
+    margin-right: 20px;
+}
+
+.container .left_wrap .ticket_wrap .mans .man .man_btn{
+    display: flex;
+    align-items: center;
+    height: 100%;
+    border: 1px solid #d3d3d3;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+.container .left_wrap .ticket_wrap .mans .man .man_btn button{
+    width: 30px;
+    height: 100%;
+    border: none;
+    font-size: 20px;
+    font-weight: 100;
+    background-color: #fff;
+}
+
+.container .left_wrap .ticket_wrap .mans .man .man_btn .minus_btn{
+    border-right: 1px solid #d3d3d3;
+    line-height: 20px;
+    border-radius: 5px 0px 0px 5px;
+}
+
+.container .left_wrap .ticket_wrap .mans .man .man_btn .plus_btn{
+    border-left: 1px solid #d3d3d3;
+    line-height: 30px;
+    border-radius: 0px 5px 5px 0px;
+}
+
+.container .left_wrap .ticket_wrap .mans .man .man_btn span{
+    width: 35px;
+    text-align: center;
+}
+
+.container .left_wrap .ticket_wrap .seat_wrap{
+    display: flex;
+    padding: 30px;
+    justify-content: center;
+    align-items: center;
+}
+
+.container .left_wrap .ticket_wrap .seat_wrap .seat_row{
+    margin-right: 30px;
+}
+
+.container .left_wrap .ticket_wrap .seat_wrap .seat_row p,
+.container .left_wrap .ticket_wrap .seat_wrap table .seats tr td{
+    width: 30px;
+    height: 30px;
+    margin-bottom: 5px;
+    text-align: center;
+    background-color: #747474;
+    color: #fff;
+}
+
+.container .left_wrap .ticket_wrap .seat_wrap .seat_row p{
+    border: 1px solid #d3d3d3;
+}
+
+.container .left_wrap .ticket_wrap .seat_wrap table .seats tr{
+    /* border: 1px solid red; */
+    display: flex;
+}
+
+.container .left_wrap .ticket_wrap .seat_wrap table .seats tr td{
+    position: relative;
+    border: 1px solid #02BFD3;
+}
+
+.container .left_wrap .ticket_wrap .seat_wrap table .seats tr td img{
+    width: 100%;
+    height: 100%;
+}
+
+.container .left_wrap .ticket_wrap .seat_wrap table .seats tr td img.canNotSelect{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    opacity: 80%;
+}
+
+.container .left_wrap .ticket_wrap .seat_wrap table .seats tr .select,
+.container .left_wrap .ticket_wrap .seat_wrap table .seats tr .selected{
+    background-color: violet;
+}
+
+.container .info_wrap .aboutMovie,
+.container .info_wrap .aboutTheater{
+    border-bottom: 1px solid #8a8a8a;
+}
+.container .info_wrap li{
+    margin: 10px 0;
+}
+
+
+.container .info_wrap .aboutMovie span,
+.container .info_wrap .aboutMovie h2{
+    display: inline-block;
+    
+}
+.container .info_wrap .aboutMovie h2{
+    font-size: 20px;
+}
+
+.container .info_wrap .aboutMovie span{
+    display: inline-block;
+    background-color: rgb(211, 128, 20);
+    border-radius: 5px;
+    width: 25px;
+    height: 25px;
+    font-weight: 900;
+    line-height: 22px;
+    margin-right: 5px;
+}
+
+.container .info_wrap .aboutMovie p{
+    margin-left: 30px;
+    color: #d3d3d3;
+    margin-bottom: 5px;
+}
+
+.container .info_wrap .aboutTheater p{
+    color: #d3d3d3;
+}
+
+.container .info_wrap .aboutTheater select{
+    margin: 5px;
+}
+
+.container .info_wrap .aboutselect{
+    display: flex;
+    height: 230px;
+    border: 1px solid #8a8a8a;
+}
+
+.container .info_wrap .aboutselect .show_how{
+    flex: 3;
+    padding: 10px;
+    border-right: 1px solid #8a8a8a;
+}
+
+.container .info_wrap .aboutselect .seat_now{
+    display: flex;
+    /* border: 1px solid red; */
+    flex: 3;
+    overflow: hidden;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.container .info_wrap .aboutselect .seat_now li{
+    border: 1px solid #d3d3d3;
+    width: 40px;
+    height: 30px;
+    margin: 2px 2px;
+    text-align: center;
+    line-height: 30px
+}
+
+.container .info_wrap .aboutselect .seat_now .seat_now_info{
+    border: none;
+    width: 100%;
+    text-align: center;
+}
+
+.container .info_wrap .aboutPrice{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0;
+    margin-top: 20px;
+}
+
+.container .info_wrap .aboutPrice span{
+    font-size: 24px;
+    margin-right: 5px;
+    font-weight: bolder;
+    color: #02BFD3;
+}
+
+.container .info_wrap .btn_wrap{
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    display: flex;
+    width: 100%;
+}
+
+.container .info_wrap .btn_wrap button{
+    border: none;
+    flex: 5;
+    border-radius: 9px 0 0 9px;
+    height: 40px;
+    background-color: #4d4d4d;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 350;
+}
+
+.container .info_wrap .btn_wrap button.next_btn{
+    border-radius: 0 9px 9px 0;
+    background-color: #d3d3d3;
+    color: #5a5a5a;
+}
