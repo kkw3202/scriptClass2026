@@ -101,6 +101,7 @@
         let aboutTheater = document.querySelector('.aboutTheater'); // 영화관 정보띄우기 // innerHTML // 영화 포스터도 넣기
         let aboutselect = document.querySelector('.aboutselect'); // 좌석 정보띄우기 // innerHTML 
         let aboutPrice = document.querySelector('.aboutPrice'); // 결제금액 정보띄우기 // innerHTML
+        let next_btn = document.querySelector('.next_btn'); // 다음 버튼 활성화용
 
         // 전역 변수 선언부
         let num = 1; // 좌석 (저장용)번호 부여용
@@ -116,7 +117,7 @@
         let seat_data = Array.from(Array(10), () => new Array(10).fill(0));
         let poeple_cnt = [0, 0]; // 인원수 카운트
         let seat_row_data = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L' ,'M' ,'N' ,'O', 'P'];
-        let aboutMovie_data = [{age:15, title:'부활남:더 레드', howToShow:'2D'}];
+        let aboutMovie_data = {age:15, title:'부활남:더 레드', howToShow:'2D', Aprice:14000, Cprice:11000};
         let aboutTheater_data = [{name:'대전중앙로', room:'8관 [Laser]', date:'2026.10.02(금)',time:'16:10~18:01'}];
         let seat_nowChoose = new Array(); // 지금 선택한 좌석 정보 담을 배열
 
@@ -145,8 +146,8 @@
                 aboutselect_rander();
                 aboutPrice_rander();
                 let temp_seat = new Array(); // 선택된 좌석 정보 저장
-                adult_cnt_prt.innerText = poeple_cnt[0];
-                child_cnt_prt.innerText = poeple_cnt[1];
+                poepleSelect_rander();
+                
                 
             // 최종 출력부
             adult_cnt_prt.innerText = poeple_cnt[0];
@@ -160,26 +161,37 @@
             seat_hover_rander();
         }
 
+        function get_selected_id(){
+            let ids = seat_nowChoose.map((value)=>{
+                return value.id;
+            });
+            return ids;
+        }
+
         function seat_rander(){
+            let ids = get_selected_id();
             result_seats = ''
             for(let i = 0; i<seat_data.length; i++){
                 let num = 1;
                 result_seats += `<tr>`
                 for(let j = 0; j<seat_data[i].length; j++){
-                    result_seats += `<td>`
+                    result_seats += `<td`
+                    if(ids.includes(seat_data[i][j].id-1)){
+                        result_seats+=` class='selected'>${num}`
+                    }else 
                     if(poeple_cnt[0] + poeple_cnt[1] > 1 || poeple_cnt[0] + poeple_cnt[1] == 0){
                         if(seat_data[i][j].is_sell >= 0){
-                            result_seats+=`${num}`
+                            result_seats+=`>${num}`
                         }else{
-                            result_seats+=`<img src='images/예매완료.png' alt='좌석상태이미지' />`
+                            result_seats+=`><img src='images/예매완료.png' alt='좌석상태이미지' />`
                         }
                     }else{
                         if(seat_data[i][j].is_sell == 1){
-                            result_seats+=`${num}`
+                            result_seats+=`>${num}`
                         }else if (seat_data[i][j].is_sell == -1){
-                            result_seats+=`<img src='images/예매완료.png' alt='좌석상태이미지' />`
+                            result_seats+=`><img src='images/예매완료.png' alt='좌석상태이미지' />`
                         }else{
-                            result_seats+=`<img class='canNotSelect' src='images/선택불가.png' alt='좌석상태이미지' /><p>${num}</p>`
+                            result_seats+=`><img class='canNotSelect' src='images/선택불가.png' alt='좌석상태이미지' /><p>${num}</p>`
                         }
                     }
                     num++;
@@ -196,7 +208,7 @@
             let total_people = poeple_cnt[0] + poeple_cnt[1];
             if(total_people != 0){
                 for(let i = 0; i<color_selSeat.length; i++){
-
+                    
                     let col = i % 10;
                     let row = (i - col) / 10;
                     let can_solo = poeple_cnt[0] + poeple_cnt[1] != 1 ? true : seat_data[row][col].is_sell == 0 ? false : true;
@@ -214,12 +226,14 @@
                                 if(is_selected(i)){
                                     if(max_8()){
                                         seat_nowChoose.unshift({id:i, name:pushing});
+                                        active_next();
                                     }
                                 }
                             else del_selected(i);
                             }else if (is_selected(i) == false) {
                                  color_selSeat[i].classList.remove('selected');
                                  del_selected(i);
+                                 active_next();
                             }else alert('인원수 만큼 선택하셨습니다');
 
 
@@ -230,6 +244,14 @@
                     }
                 }
             }
+
+
+            active_next();
+        }
+
+        function poepleSelect_rander(){
+            adult_cnt_prt.innerText = poeple_cnt[0];
+            child_cnt_prt.innerText = poeple_cnt[1];
         }
 
         function max_8(){
@@ -238,9 +260,7 @@
         }
 
         function del_selected(data_id){
-            let ids = seat_nowChoose.map((value)=>{
-                return value.id;
-            });
+            let ids = get_selected_id();
 
             let delNum = ids.indexOf(data_id);
 
@@ -250,9 +270,7 @@
 
         function is_selected(data_id){
 
-            let serach = seat_nowChoose.map((value) => {
-                return value.id
-            });
+            let serach = get_selected_id();
 
             let result = serach.indexOf(data_id) == -1 ? true : false;
             return result
@@ -287,7 +305,7 @@
         // 원래는 매개변수 받아와야 함
         function aboutMovie_rander(){
             result_aboutMovie = '';
-            result_aboutMovie += `<span>${aboutMovie_data[0].age}</span><h2>${aboutMovie_data[0].title}</h2><p>${aboutMovie_data[0].howToShow}</p>`;
+            result_aboutMovie += `<span>${aboutMovie_data.age}</span><h2>${aboutMovie_data.title}</h2><p>${aboutMovie_data.howToShow}</p>`;
         }
         
         // 원래는 매개변수 받아와야 함
@@ -314,7 +332,7 @@
             result_aboutselect += `<li class='seat_now_info'><h3>선택좌석</h3></li>`;
                 for(let i = 0; i < 8; i++){
                     seat_nowChoose[i] == undefined ? result_aboutselect += `<li>-</li>` :
-                    result_aboutselect += `<li>${seat_nowChoose[i].name}</li>`
+                    result_aboutselect += `<li class='coloring'>${seat_nowChoose[i].name}</li>`
                 }
             result_aboutselect += `</ul>`;
 
@@ -322,6 +340,7 @@
         }
         
         function aboutPrice_rander(){
+            totalPrice = aboutMovie_data.Aprice * poeple_cnt[0] + aboutMovie_data.Cprice * poeple_cnt[1]
             result_aboutPrice = '';
             result_aboutPrice += `<p>최종결제금액</p><p><span>${totalPrice}</span>원</p>`
         }
@@ -368,11 +387,22 @@
 
         // 인원수 가감
         function plus(i){
+            // if(seat_nowChoose.length != 0){
+            //     alert('선택한 자리를 먼저 취소한 후 진행해주세요');
+            //     return;
+            // }
             poeple_cnt[0] + poeple_cnt[1] == 8 ? alert('인원선택은 총 8명까지 가능합니다') : poeple_cnt[i]++;
+            // poepleSelect_rander();
+            // seat_hover_rander();
             rander();
         }
         function minus(i){
-            poeple_cnt[i] == 0 ? '' : poeple_cnt[i]--;
+            if(seat_nowChoose.length >= (poeple_cnt[0]+poeple_cnt[1])){
+                alert('선택한 자리를 먼저 취소해 주세요.');
+                return;
+            }else poeple_cnt[i] == 0 ? '' : poeple_cnt[i]--;
+            // poepleSelect_rander();
+            // seat_hover_rander();
             rander();
         }
 
@@ -384,6 +414,20 @@
 
             rander();
         }
+
+        function active_next(){
+            if(seat_nowChoose.length != 0 && seat_nowChoose.length == poeple_cnt[0] + poeple_cnt[1]){
+                next_btn.classList.add('active');
+                // next_btn.classList.remove('next_btn');
+            }else{
+                next_btn.classList.remove('active');
+            }
+
+        }
+
+        
+
+
 
         rander();
     </script>
