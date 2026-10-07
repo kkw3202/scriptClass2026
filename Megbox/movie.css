@@ -12,6 +12,10 @@ button{
     cursor: pointer;
 }
 
+a{
+    text-decoration: none;
+    color: inherit;
+}
 
 .container{
     /* border: 1px solid red;    */
@@ -192,6 +196,11 @@ button{
 .container .info_wrap .aboutTheater{
     border-bottom: 1px solid #8a8a8a;
 }
+
+.container .info_wrap .aboutTheater{
+    position: relative;
+}
+
 .container .info_wrap li{
     margin: 10px 0;
 }
@@ -231,10 +240,18 @@ button{
     margin: 5px;
 }
 
+.container .info_wrap .aboutTheater img{
+    width: 65px;
+    position: absolute;
+    top: 0px;
+    right: 20px;
+}
+
 .container .info_wrap .aboutselect{
     display: flex;
     height: 230px;
     border: 1px solid #8a8a8a;
+    margin-bottom: 5px;
 }
 
 .container .info_wrap .aboutselect .show_how{
@@ -275,7 +292,8 @@ button{
     justify-content: space-between;
     align-items: center;
     margin-bottom: 0;
-    margin-top: 20px;
+    margin-top: 0px;
+    flex-wrap: wrap;
 }
 
 .container .info_wrap .aboutPrice span{
@@ -283,6 +301,18 @@ button{
     margin-right: 5px;
     font-weight: bolder;
     color: #02BFD3;
+}
+
+.container .info_wrap .aboutPrice p.how_many,
+.container .info_wrap .aboutPrice p.noShow{
+    width: 100%;
+    font-size: 12px;
+    color: #c7c7c7;
+}
+
+.container .info_wrap .aboutPrice p.noShow{
+    opacity: 0%;
+    cursor: default;
 }
 
 .container .info_wrap .btn_wrap{

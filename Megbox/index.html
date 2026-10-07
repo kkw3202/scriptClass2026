@@ -1,97 +1,127 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>main</title>
     <link rel="stylesheet" href="index.css">
 </head>
+
 <body>
     <div class="container">
         <header id="header">
-            <nav class="member-quick">
-                <ul class="to_left">
-                    <li><a href="#">VIP LOUNGE</a></li>
-                    <li><a href="#">맴버십</a></li>
-                    <li><a href="#">고객센터</a></li>
-                </ul>
-                <ul class="to_right">
-                    <li><a href="#">로그인</a></li>
-                    <li><a href="#">회원가입</a></li>
-                    <li><a href="#">빠른예매</a></li>
-                </ul>
-            </nav>
-            <nav class="movie_nav">
-                <ul class="to_left">
-                    <li class="to_left"><img src="images/menu-bar.svg" alt="메뉴바"/></li>
-                    <li class="to_left"><img src="images/search.svg" alt="검색"></li>
-                    <li><a href="#">영화</a></li>
-                    <li><a href="#">예매</a></li>
-                    <li><a href="#">극장</a></li>
-                </ul>
-                <ul class="to_right">
-                    <li><a href="#">이벤트</a></li>
-                    <li><a href="#">스토어</a></li>
-                    <li><a href="#">혜택</a></li>
-                    <li class="to_right"><a href="#"><img src="images/icons8-calendar-24.png" alt="상영시간표"/></a></li>
-                    <li class="to_right"><a href="#"><img src="images/icons8-customer-30.png" alt="나의 메가박스"></a></li>
-                </ul>
-            </nav>
-            <a href="#"><img src="images/icons8-theater-66.png" alt="메인로고_이미지"></a>
+            <div class="contents">
+                <nav class="member-quick">
+                    <ul class="to_left">
+                        <li><a href="#">VIP LOUNGE</a></li>
+                        <li><a href="#">맴버십</a></li>
+                        <li><a href="#">고객센터</a></li>
+                    </ul>
+                    <ul class="to_right">
+                        <li><a href="#">로그인</a></li>
+                        <li><a href="#">회원가입</a></li>
+                        <li><a href="movieSeat_1man.html">빠른예매</a></li>
+                    </ul>
+                </nav>
+                <nav class="movie_nav">
+                    <ul class="to_left">
+                        <li class="iamgeGroup">
+                            <img src="images/menu-bar.svg" alt="메뉴바" />
+                            <img src="images/search.svg" alt="검색">
+                        </li>
+                        <li><a href="#">영화</a></li>
+                        <li><a href="#">예매</a></li>
+                        <li><a href="#">극장</a></li>
+                    </ul>
+                    <ul class="to_right">
+                        <li><a href="#">이벤트</a></li>
+                        <li><a href="#">스토어</a></li>
+                        <li><a href="#">혜택</a></li>
+                        <li class="iamgeGroup">
+                            <a href="#"><img src="images/icons8-calendar-24.png" alt="상영시간표" /></a>
+                            <a href="#"><img src="images/icons8-customer-30.png" alt="나의 메가박스"></a>
+                        </li>
+                    </ul>
+                </nav>
+                <a href="index.html" class="logo"><img src="images/logo_backWihte.png" alt="메인로고_이미지"></a>
+            </div>
         </header>
         <main>
             <section class="boxOffice_wrap">
-                <h1>박스오피스</h1>
-                <ul class="boxOffice_movie"></ul>
-                <nav class="boxOffice_link">
-                    <ul>
-                        <li class="search"><input type="text"><img src="images/search.svg" alt="검색"></li>
-                        <li><img src="images/icons8-calendar-24.png" alt="상영시간표">상영시간표</li>
-                        <li><img src="images/icons8-film-50.png" alt="박스오피스">박스오피스</li>
-                        <li><img src="images/icons8-ticket-100.png" alt="빠른예매">빠른예매</li>
-                    </ul>
-                </nav>
+                <div class="contents">
+                    <div class="title">
+                        <h1><a href="#">박스오피스</a></h1>
+                        <a href="#" class="right"><span>더 많은 영화보기</span> +</a>
+                    </div>
+                    <ul class="boxOffice_movie"></ul>
+                    <nav class="boxOffice_link">
+                        <ul>
+                            <li class="search"><input type="text"><img src="images/search.svg" alt="검색"></li>
+                            <li><img src="images/icons8-calendar-24.png" alt="상영시간표">상영시간표</li>
+                            <li><img src="images/icons8-film-50.png" alt="박스오피스">박스오피스</li>
+                            <li><img src="images/icons8-ticket-100.png" alt="빠른예매">빠른예매</li>
+                        </ul>
+                    </nav>
+                    <div class="scoll">
+                        <img src="images/icons8-mouse-48.png" alt="마우스">
+                    </div>
+                </div>
             </section>
             <section class="curation_wrap">
-                <div class="title">
-                    <h1>큐레이션</h1>
-                    <a href="#" class="to_right">큐레이션 더보기</a>
+                <div class="contents">
+                    <div class="title">
+                        <h1>큐레이션</h1>
+                        <a href="#" class="right"><span>큐레이션 더보기</span> +</a>
+                    </div>
+                    <div class="curation_main">
+                        <ul class="curation_1st"></ul>
+                        <div class="to_right">
+                            <ul class="curation_1st_text"></ul>
+                            <ul class="curation_others"></ul>
+                        </div>
+                    </div>
                 </div>
-                <ul class="curation_1st"></ul>
-                <ul class="curation_1st_text"></ul>
-                <ul class="curation_others"></ul>
             </section>
             <section class="aboutUs_wrap">
-                <div class="aboutUs">
-                    <h1>메가박스 안내</h1>
-                    <button class="move_front">&lt;</button>
-                    <ul class="aboutUs_img_max6"></ul>
-                    <button class="move_back">&gt;</button>
+                <div class="contents">
+                    <div class="aboutUs">
+                        <h1>메가박스 안내</h1>
+                        <button class="move_front" onclick="aboutUs_minus()">&lt;</button>
+                        <ul class="aboutUs_img_max6"></ul>
+                        <button class="move_back" onclick="aboutUs_plus()">&gt;</button>
+                    </div>
                 </div>
-                <div class="notice"></div>
-                <nav class="aboutUs_link">
-                    <a href="#">고객센터</a>
-                    <a href="#">자주 묻는 질문</a>
-                    <a href="#">1:1 문의</a>
-                    <a href="#">단체/대관문의</a>
-                    <a href="#">분실물 문의/접수</a>
-                    <a href="#">더 부티크 프라이빗 대관예매</a>
-                </nav>
+                    <div class="notice"></div>
+                <div class="contents">
+                    <nav class="aboutUs_link">
+                        <a href="#">고객센터</a>
+                        <a href="#">자주 묻는 질문</a>
+                        <a href="#">1:1 문의</a>
+                        <a href="#">단체/대관문의</a>
+                        <a href="#">분실물 문의/접수</a>
+                        <a href="#" class="tooLong">더 부티크 프라이빗 대관예매</a>
+                    </nav>
+                </div>
             </section>
         </main>
         <footer id="footer">
-            <div class="infoUs">
-                <img src="images/icons8-theater-66.png" alt="로고"/>
-                <p>서울시 xx구 xx로 xx길 xx xx빌딩 xxx호 ARS xxxx-xxxx 대표이메일 example@exam.com 대표자명 김xx 사업자등록번호 xxx-xx-xxxxx 통신판매업신고번호 xxxx-xxxx-xxxxx
-                    imgs by https://icons8.com/
-                </p>
-                <p>COPYRIGHT &copy; Example, All right reserved</p>
-            </div>
-            <div class="infoUs_link">
-                <a href="#">Y</a>
-                <a href="#">I</a>
-                <a href="#">F</a>
-                <a href="#">X</a>
+            <div class="contents">
+                <div class="infoUs">
+                    <img src="images/logo_back_purple.png" alt="로고" />
+                    <div class="p_wrap">
+                        <pre>서울시 xx구 xx로 xx길 xx xx빌딩 xxx호 ARS xxxx-xxxx 대표이메일 example@exam.com 
+대표자명 김xx 사업자등록번호 xxx-xx-xxxxx통신판매업신고번호 xxxx-xxxx-xxxxx
+imgs by https://icons8.com/</pre>
+                        <p>COPYRIGHT &copy; Example, All right reserved</p>
+                    </div>
+                </div>
+                <div class="infoUs_link">
+                    <a href="#">Y</a>
+                    <a href="#">I</a>
+                    <a href="#">F</a>
+                    <a href="#">X</a>
+                </div>
             </div>
         </footer>
         <section class="boxoffice"></section>
@@ -99,7 +129,123 @@
 
     <script>
         // DOM 연결부
+        let boxOffice_movie = document.querySelector('.contents .boxOffice_movie');
+        let curation_1st = document.querySelector('.curation_1st');
+        let curation_1st_text = document.querySelector('.curation_1st_text');
+        let curation_others = document.querySelector('.curation_others');
+        let aboutUs_img_max6 = document.querySelector('.aboutUs_img_max6');
+        let notice = document.querySelector('.notice');
 
+        // (더미) 데이터 선언부
+        let boxoffice_list = [{img:`images&bsol;box1.png`,likes:'1.8k',title:'룩백'},{img:`images&bsol;box2.png`,likes:'5.5k',title:'먼작귀'},{img:`images&bsol;box3.png`,likes:'1k',title:'암살자들'},{img:`images&bsol;box4.png`,likes:'361',title:'타짜'}];
+        let curation_list =['격전의 밤','ACTA EST FABULA','이릉 없는 자','청년 한경식']; // 2번부터
+        let curation_1st_text_info = {name:'룩백',tag:'필름소사이어티',
+                                    info:`학교 신문에서 네컷 만화를 그리는 자신만만한 소녀 ‘후지노’와
+
+그를 동경하지만 세상 밖이 두려워 방 안에 틀어박힌 외톨이 ‘쿄모토’.
+
+“너는 왜 만화를 그리는 거야?”
+
+만화가 세상의 전부였던 그 시절,
+두 소녀의 사계절이 눈부신 색깔로 채워지기 시작한다.`}
+        let notice_first = {writeBy:'메가박스',tab:'공지',title:'[네이버페이] 10월 은행/증권사 시스템 점검 일정 안내(10/11~19)',date:'2026.10.07'}
+        
+        // 출력용 변수 선언부
+        let result_boxOffice_movie='';
+        let result_curation_1st='';
+        let result_curation_1st_text='';
+        let result_curation_others ='';
+        let result_aboutUs_img_max6='';
+        let result_notice='';
+
+        // 변수 선언부
+        let aboutUs_img_now_prt = 1;
+
+        // 함수 선언부
+        function rander(){
+            boxOffice_movie_prt();
+            curation_prn();
+            aboutUs_img_max6_prt();
+            notice_prt();
+            boxOffice_movie.innerHTML = result_boxOffice_movie;
+            curation_1st.innerHTML = result_curation_1st;
+            curation_1st_text.innerHTML = result_curation_1st_text;
+            curation_others.innerHTML = result_curation_others;
+            aboutUs_img_max6.innerHTML = result_aboutUs_img_max6
+            notice.innerHTML = result_notice;
+        }
+
+        function boxOffice_movie_prt(){
+            let result ='';
+            for(let i =0; i<boxoffice_list.length; i++){
+                result +=  `<li>
+                                <img src='${boxoffice_list[i].img}' alt='${boxoffice_list[i].title}포스터'/>
+                                <button type='button' class='likes_btn'>♡${boxoffice_list[i].likes}</button>
+                                <button type='button' class='ticket_btn'>예매</button>
+                            </li>`
+            }
+            result_boxOffice_movie = result;
+        }
+
+        function curation_prn(){
+            result_curation_1st =   `<li>
+                                        <img src='images&bsol;cu1.png'/>
+                                        <button>상세정보</button>
+                                        <button class='ticket_btn'>예매</button>
+                                    </li>`;
+            result_curation_1st_text = `<li>
+                                        <p>#${curation_1st_text_info.tag}</p>
+                                        <h2>${curation_1st_text_info.name}</h2>
+                                        <pre>${curation_1st_text_info.info}</pre>
+                                        </li>`;
+            let result ='';
+            for(let i =0; i<4; i++){
+                result +=  `<li>
+                                <a href='#'>
+                                    <img src='images&bsol;cu${i+2}.png' alt='${curation_list[i]}포스터'/>
+                                    <h3>${curation_list[i]}</h3>
+                                </a>
+                            </li>`
+            }
+            
+            result_curation_others = result;
+
+            
+        }
+
+        function aboutUs_img_max6_prt(){
+            let result = '';
+            for(let i = aboutUs_img_now_prt; i< aboutUs_img_now_prt + 6; i++){
+                result += `<li><a><img src='images&bsol;aboutUs&bsol;${i}.png' alt=''/></a></li>`
+            }
+            result_aboutUs_img_max6 = result;
+        }
+        
+        function aboutUs_plus(){
+            aboutUs_img_now_prt < 5 ? aboutUs_img_now_prt++ : ''
+            rander();
+        }
+
+        function aboutUs_minus(){
+            aboutUs_img_now_prt > 1 ? aboutUs_img_now_prt-- : ''
+            rander();
+        }
+
+        function notice_prt(){
+            let result=''
+            result += '<div class="contents con_notice">'
+            result += `<p>${notice_first.writeBy}</p>`
+                     + `<p class='title'><span>[${notice_first.tab}]</span>${notice_first.title}</p>`
+                     + `<div class='to_right'>`
+                     + `<p class='date'>${notice_first.date}</p>`
+                     + `<p>더보기<span>&gt;</span></p></div>`
+            result += '</div>'
+
+            result_notice = result;
+        }
+
+        rander();
     </script>
 </body>
+
 </html>

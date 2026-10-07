@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="movie.css">
 </head>
 <body>
-    <!-- <button onclick="test()">테스트용 예매처리 버튼</button> -->
+    <button onclick="test()">테스트용 예매처리 버튼</button>
     <section class="container">
             <h1>빠른예매</h1>
             <form action="#" method="post">
@@ -170,6 +170,7 @@
 
         function seat_rander(){
             let ids = get_selected_id();
+            // console.log('ids', ids)
             result_seats = ''
             for(let i = 0; i<seat_data.length; i++){
                 let num = 1;
@@ -208,7 +209,6 @@
             let total_people = poeple_cnt[0] + poeple_cnt[1];
             if(total_people != 0){
                 for(let i = 0; i<color_selSeat.length; i++){
-                    
                     let col = i % 10;
                     let row = (i - col) / 10;
                     let can_solo = poeple_cnt[0] + poeple_cnt[1] != 1 ? true : seat_data[row][col].is_sell == 0 ? false : true;
@@ -228,9 +228,8 @@
                                         seat_nowChoose.unshift({id:i, name:pushing});
                                         active_next();
                                     }
-                                }
-                            else del_selected(i);
-                            }else if (is_selected(i) == false) {
+                                }else del_selected(i);
+                            }else if (is_selected(i) == false ) {
                                  color_selSeat[i].classList.remove('selected');
                                  del_selected(i);
                                  active_next();
@@ -245,7 +244,56 @@
                 }
             }
 
+            if(total_people >= 2 && total_people - seat_nowChoose.length >= 2){
+                console.log(seat_nowChoose)
+                for(let i = 0; i<color_selSeat.length; i++){
 
+                    let col = i % 10;
+                    let row = (i - col) / 10;
+
+                    let can_next;
+
+                    // if(col < 9){
+                    //     seat_data[row][col+1].is_sell == -1 ? can_next = false : true;
+                    // }
+
+                    // if(can_next){
+
+                    // }
+                    let double_seat = col % 2 == 0 ? 1 : -1;
+                    if(col <= 9){
+                        if(seat_data[row][col+double_seat].is_sell != -1 && seat_data[row][col].is_sell!= -1){
+                            color_selSeat[i].addEventListener('mouseenter', ()=>{
+                                color_selSeat[i+double_seat].classList.add('select');
+                            });
+                            color_selSeat[i].addEventListener('mouseleave', ()=>{
+                                color_selSeat[i+double_seat].classList.remove('select');
+                            });
+                            color_selSeat[i].addEventListener('click', ()=>{
+                            if(poeple_cnt[0]+poeple_cnt[1] > seat_nowChoose.length){
+                                color_selSeat[i+double_seat].classList.toggle('selected');
+                                let pushing = selSeat_naming(i+double_seat);
+                                if(is_selected(i+double_seat)){
+                                    if(max_8()){
+                                        seat_nowChoose.unshift({id:i+double_seat, name:pushing});
+                                        console.log(seat_nowChoose)
+                                        active_next();
+                                    }
+                                }else del_selected(i+double_seat);
+                            }else if (is_selected(i+double_seat) == false ) {
+                                 color_selSeat[i+double_seat].classList.remove('selected');
+                                 del_selected(i+double_seat);
+                                 active_next();
+                            }else alert('인원수 만큼 선택하셨습니다');
+
+                            aboutselect_rander();
+                            aboutselect.innerHTML = result_aboutselect;
+                        });
+                        }
+                    }
+                }
+            }
+            
             active_next();
         }
 
@@ -265,14 +313,21 @@
             let delNum = ids.indexOf(data_id);
 
             seat_nowChoose.splice(delNum, 1);
-            
         }
 
         function is_selected(data_id){
 
             let serach = get_selected_id();
-
             let result = serach.indexOf(data_id) == -1 ? true : false;
+            return result
+        }
+
+        function is_selected2(data_id){
+            let serach = get_selected_id();
+            let first = serach.indexOf(data_id);
+            serach.splice(first, 1);
+            let result = serach.indexOf(data_id) == -1 ? true : false;
+
             return result
         }
 
