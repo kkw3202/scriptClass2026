@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM Tree</title>
+    <style>
+        p.active{
+            color: red;
+            font-style: italic;
+        }
+    </style>
+</head>
+    
+<body>
+    <!-- 
+    1) 문서 객체 모델(DOM, document Object Model)
+        xml, HTML 문서에 접근하기 위한 일종의 인터페이스이다.
+    -->
+    <h1>제목</h1>
+    <p>본문</p>
+    <h2 id="title">Hello</h2>
+    <!-- 
+    1. 요소노드(Element) : h2
+    2. 속성노드 : id="title"
+    3. 텍스트노드 : "Hello"
+    -->
+    <p id="test01">test01</p>
+    <p class="test02">test02</p>
+    <p class="test02">test02-2</p>
+    <p class="test04"><span class="spanTest04">test04</span></p>
+
+    <h1 id="title02">안녕하세요</h1>
+
+    <img id="img" src="/images/coffee-pink.jpg" alt="핑크커피" width="200px">
+
+    <ul id="list">
+        <li>기존항목</li>
+        <li id="item">삭제될항목</li>
+    </ul>
+
+    <p id="p1">this is a paragraph</p>
+    <input type="button" onclick="changeStyle()" value="눌러보세요" />
+
+    <script>
+        // 요소노드 : getElementById(), getElementsByClassName()[순서], getElementsByTagName()[순서] ect... [순서 = index 번호]
+        // 단, class 와 태그 document 는 순서를 정하지 않으면 반드시 반복문 사용하지 않으면 접근불가
+        let elementNode01 = document.getElementById('test01');
+        let elementNode02 = document.getElementsByClassName('test02');
+        let elementNode03 = document.getElementsByTagName('p');
+        console.log('elementNode01', elementNode01);
+        console.log('elementNode02[0]', elementNode02[0]);
+        console.log('elementNode02', elementNode02);
+        console.log('elementNode03[1]', elementNode03[1]);
+        console.log('elementNode03', elementNode03);
+
+        // querySelector(), querySelectorAll() 메소드도 마찬가지로 요소노드 선택하지만, css 선택자 문법을 사용할 수 있어 더 유연/세밀함
+        let elementNode04 = document.querySelector('.test04 .spanTest04');
+        console.log('elementNode04', elementNode04);
+
+        // 속성노드 접근하기
+        // innerText, innerHTML, textContent, .getAttribute(), .setAttribute() ect...
+        // .getAttribute('속성명') => 속성명에 해당하는 요소 조회
+        // .setAttribute('속성명, 속성값') => 속성명에 해당하는 요소의 속성을 속성값으로 변경. 없다면 추가
+        let elementNode05 = document.querySelector('.test04');
+        elementNode05.setAttribute('id', '#stest04'); // 해당 경우에는 class 만 있고 id 가 없었으므로 추가
+        console.log('05 changed', elementNode05);
+
+        // id 속성값만 가져오기
+        let idValue = elementNode05.getAttribute('id');
+        console.log('getId : ', idValue)
+
+        let img = document.querySelector('#img');
+        img.setAttribute('src','/images/coffee-gray.jpg');
+
+        // 요소 생성/추가/삭제 메소드
+        // 생성 : document.creatElement('생성할 요소');
+                // 새로 생성한 HTML 태그(요소)를 메모리 상에서만 생성
+        // 추가 : appendChild('추가할 요소');
+                // 메모리 상에 생성된 태그(요소) 객체를 지정한 부모 요소의 맨 끝으로 불러옴
+        // 삭제 : removeChild('삭제할 요소'(안적어도 됨!));
+                // 해당 요소를 DOM 트리의 부모 요소로부터 직접 삭제한다.
+
+        let list = document.getElementById('list');
+        // 생성
+        let new_li = document.createElement('li');
+        // 추가
+        new_li.innerText='새 항목01';
+        list.appendChild(new_li); // list 로 따온 곳(ul)의 자식태그로 new_li 의 <li> 추가
+
+
+        // 삭제
+        // let dle_li = document.getElementById('item');
+        // list.removeChild(dle_li);
+
+        document.getElementById('item').remove();
+
+        // function changeStyle(){
+        //     document.getElementById('p1').style.color='red';
+        //     document.getElementById('p1').style.fontStyle='italic';
+        // }
+        
+        // toggle() 메소드 이용, 스타일 변경하기 
+        function changeStyle(){
+            document.getElementById('p1').classList.toggle('active');
+        }
+    </script>
+</body>
+
+</html>

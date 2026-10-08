@@ -1,56 +1,61 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>메가박스 예매</title>
     <link rel="stylesheet" href="movie.css">
 </head>
+
 <body>
     <button onclick="test()">테스트용 예매처리 버튼</button>
     <section class="container">
-            <h1>빠른예매</h1>
-            <form action="#" method="post">
-                <div class="left_wrap">
-                    <div class="reset">
-                        <h2>관람인원선택</h2>
-                        <button class="reste_btn" type="button" onclick="reset_sel()"><img src="images/refresh.svg" alt="초기화"/>초기화</button>
-                    </div>
-                    <div class="ticket_wrap">
-                        <ul class="mans">
-                            <li class="man">
-                                <label>성인</label>
-                                <div class="man_btn">
-                                    <button class="minus_btn" onclick="minus(0)" type="button">-</button>
-                                    <span class="adult_cnt_prt"></span>
-                                    <button class="plus_btn" onclick="plus(0)" type="button">+</button>
-                                </div>
-                            </li>
-                            <li class="man">
-                                <label>청소년</label>
-                                <div class="man_btn">
-                                    <button class="minus_btn" onclick="minus(1)" type="button">-</button>
-                                    <span class="child_cnt_prt"></span>
-                                    <button class="plus_btn" onclick="plus(1)" type="button">+</button>
-                                </div>
-                            </li>
-                        </ul>
-                        <div class="seat_wrap">
-                            <div class="seat_row"></div>
-                            <table>
-                                <tbody class="seats"></tbody>
-                            </table>
-                        </div>
+        <h1>빠른예매</h1>
+        <form action="#" method="post">
+            <div class="left_wrap">
+                <div class="reset">
+                    <h2>관람인원선택</h2>
+                    <button class="reste_btn" type="button" onclick="reset_sel()"><img src="images/refresh.svg"
+                            alt="초기화" />초기화</button>
+                </div>
+                <div class="ticket_wrap">
+                    <ul class="mans">
+                        <li class="man">
+                            <label>성인</label>
+                            <div class="man_btn">
+                                <button class="minus_btn" onclick="minus(0)" type="button">-</button>
+                                <span class="adult_cnt_prt"></span>
+                                <button class="plus_btn" onclick="plus(0)" type="button">+</button>
+                            </div>
+                        </li>
+                        <li class="man">
+                            <label>청소년</label>
+                            <div class="man_btn">
+                                <button class="minus_btn" onclick="minus(1)" type="button">-</button>
+                                <span class="child_cnt_prt"></span>
+                                <button class="plus_btn" onclick="plus(1)" type="button">+</button>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="seat_wrap">
+                        <div class="seat_row"></div>
+                        <table>
+                            <tbody class="seats"></tbody>
+                        </table>
                     </div>
                 </div>
+            </div>
             <ul class="info_wrap">
                 <li class="aboutMovie"></li>
                 <li class="aboutTheater"></li>
                 <li class="aboutselect"></li>
                 <li class="aboutPrice"></li>
                 <li class="btn_wrap">
-                    <button onclick="toIndex()" type="button"><a href="index.html">이전</a></button>  <!-- 원래 영화, 영화관 선택으로 가야하지만, 여기서는 alter 띄울 예정 -->
-                    <button onclick="not()" class="next_btn" type="submit">다음</button>  <!-- 원래 결제화면으로 가야하지만, 여기서는 alter 띄울 예정 -->
+                    <button onclick="toIndex()" type="button"><a href="index.html">이전</a></button>
+                    <!-- 원래 영화, 영화관 선택으로 가야하지만, 여기서는 alter 띄울 예정 -->
+                    <button onclick="not()" class="next_btn" type="submit">다음</button>
+                    <!-- 원래 결제화면으로 가야하지만, 여기서는 alter 띄울 예정 -->
                 </li>
             </ul>
         </form>
@@ -117,38 +122,38 @@
         // (더미) 데이터 선언부
         let seat_data = Array.from(Array(10), () => new Array(10).fill(0));
         let poeple_cnt = [0, 0]; // 인원수 카운트
-        let seat_row_data = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L' ,'M' ,'N' ,'O', 'P'];
-        let aboutMovie_data = {age:15, title:'부활남:더 레드', howToShow:'2D', Aprice:14000, Cprice:11000, image:`Gemini_Generated_Image_o4aiopo4aiopo4ai.png`};
-        let aboutTheater_data = [{name:'대전중앙로', room:'8관 [Laser]', date:'2026.10.02(금)',time:'16:10~18:01'}];
+        let seat_row_data = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P'];
+        let aboutMovie_data = { age: 15, title: '부활남:더 레드', howToShow: '2D', Aprice: 14000, Cprice: 11000, image: `Gemini_Generated_Image_o4aiopo4aiopo4ai.png` };
+        let aboutTheater_data = [{ name: '대전중앙로', room: '8관 [Laser]', date: '2026.10.02(금)', time: '16:10~18:01' }];
         let seat_nowChoose = new Array(); // 지금 선택한 좌석 정보 담을 배열
 
         // 데이터 기본 값 주기
-        for(let i = 0; i<seat_data.length; i++){
-            for(let j = 0; j<seat_data[i].length; j++){
-                    j != seat_data[i].length-1 ? // 줄이 바뀌는 타이밍에는 num +1000 으로 구분
-                    seat_data[i][j] = {id:num, is_sell:1}: // 1이면 예매가능, -1 이면 예매불가 // 0이면 1인 예매 불가
-                    seat_data[i][j] = {id:(num+1000), is_sell:1};
+        for (let i = 0; i < seat_data.length; i++) {
+            for (let j = 0; j < seat_data[i].length; j++) {
+                j != seat_data[i].length - 1 ? // 줄이 바뀌는 타이밍에는 num +1000 으로 구분
+                    seat_data[i][j] = { id: num, is_sell: 1 } : // 1이면 예매가능, -1 이면 예매불가 // 0이면 1인 예매 불가
+                    seat_data[i][j] = { id: (num + 1000), is_sell: 1 };
                 num++;
-                }
             }
-        
+        }
+
 
         // 함수 선언부
         // 화면 띄우기
-        function rander(){
+        function rander() {
             // 지역 변수 선언부
             // HTML 출력용 변수 묶음      
-                set_cnaNot_solo();
-                seat_row_rander();
-                seat_rander();
-                aboutMovie_rander();
-                aboutTheater_rander();
-                aboutselect_rander();
-                aboutPrice_rander();
-                let temp_seat = new Array(); // 선택된 좌석 정보 저장
-                poepleSelect_rander();
-                
-                
+            set_cnaNot_solo();
+            seat_row_rander();
+            seat_rander();
+            aboutMovie_rander();
+            aboutTheater_rander();
+            aboutselect_rander();
+            aboutPrice_rander();
+            let temp_seat = new Array(); // 선택된 좌석 정보 저장
+            poepleSelect_rander();
+
+
             // 최종 출력부
             adult_cnt_prt.innerText = poeple_cnt[0];
             child_cnt_prt.innerText = poeple_cnt[1];
@@ -156,43 +161,42 @@
             seat_row.innerHTML = result_seat_row;
             aboutMovie.innerHTML = result_aboutMovie;
             aboutTheater.innerHTML = result_aboutTheater;
-            aboutselect.innerHTML =  result_aboutselect;
+            aboutselect.innerHTML = result_aboutselect;
             aboutPrice.innerHTML = result_aboutPrice;
             seat_hover_rander();
         }
 
-        function get_selected_id(){
-            let ids = seat_nowChoose.map((value)=>{
+        function get_selected_id() {
+            let ids = seat_nowChoose.map((value) => {
                 return value.id;
             });
             return ids;
         }
 
-        function seat_rander(){
+        function seat_rander() {
             let ids = get_selected_id();
             // console.log('ids', ids)
             result_seats = ''
-            for(let i = 0; i<seat_data.length; i++){
+            for (let i = 0; i < seat_data.length; i++) {
                 let num = 1;
                 result_seats += `<tr>`
-                for(let j = 0; j<seat_data[i].length; j++){
+                for (let j = 0; j < seat_data[i].length; j++) {
                     result_seats += `<td`
-                    if(ids.includes(seat_data[i][j].id-1)){
-                        result_seats+=` class='selected'>${num}`
-                    }else 
-                    if(poeple_cnt[0] + poeple_cnt[1] > 1 || poeple_cnt[0] + poeple_cnt[1] == 0){
-                        if(seat_data[i][j].is_sell >= 0){
-                            result_seats+=`>${num}`
-                        }else{
-                            result_seats+=`><img src='images/예매완료.png' alt='좌석상태이미지' />`
+                    if (ids.includes(seat_data[i][j].id - 1)) {
+                        result_seats += ` class='selected'>${num}`
+                    } else if (poeple_cnt[0] + poeple_cnt[1] > 1 || poeple_cnt[0] + poeple_cnt[1] == 0) {
+                        if (seat_data[i][j].is_sell >= 0) {
+                            result_seats += `>${num}`
+                        } else {
+                            result_seats += `><img src='images/예매완료.png' alt='좌석상태이미지' />`
                         }
-                    }else{
-                        if(seat_data[i][j].is_sell == 1){
-                            result_seats+=`>${num}`
-                        }else if (seat_data[i][j].is_sell == -1){
-                            result_seats+=`><img src='images/예매완료.png' alt='좌석상태이미지' />`
-                        }else{
-                            result_seats+=`><img class='canNotSelect' src='images/선택불가.png' alt='좌석상태이미지' /><p>${num}</p>`
+                    } else {
+                        if (seat_data[i][j].is_sell == 1) {
+                            result_seats += `>${num}`
+                        } else if (seat_data[i][j].is_sell == -1) {
+                            result_seats += `><img src='images/예매완료.png' alt='좌석상태이미지' />`
+                        } else {
+                            result_seats += `><img class='canNotSelect' src='images/선택불가.png' alt='좌석상태이미지' /><p>${num}</p>`
                         }
                     }
                     num++;
@@ -204,110 +208,123 @@
 
 
 
-        function seat_hover_rander(){
+        function seat_hover_rander() {
+            let seat_cnt = seat_nowChoose.length;
+            // console.log(seat_cnt);
             let color_selSeat = document.querySelectorAll('.seats tr td'); // 마우스 올린 좌석 보라색으로
             let total_people = poeple_cnt[0] + poeple_cnt[1];
-            if(total_people != 0){
-                for(let i = 0; i<color_selSeat.length; i++){
-                    let col = i % 10;
-                    let row = (i - col) / 10;
-                    let can_solo = poeple_cnt[0] + poeple_cnt[1] != 1 ? true : seat_data[row][col].is_sell == 0 ? false : true;
-                    if(seat_data[row][col].is_sell != -1 && can_solo){
-                        color_selSeat[i].addEventListener('mouseenter', ()=>{
-                            color_selSeat[i].classList.add('select');
-                        });
-                        color_selSeat[i].addEventListener('mouseleave', ()=>{
-                            color_selSeat[i].classList.remove('select');
-                        });
-                        color_selSeat[i].addEventListener('click', ()=>{
-                            if(poeple_cnt[0]+poeple_cnt[1] > seat_nowChoose.length){
-                                color_selSeat[i].classList.toggle('selected');
-                                let pushing = selSeat_naming(i);
-                                if(is_selected(i)){
-                                    if(max_8()){
-                                        seat_nowChoose.unshift({id:i, name:pushing});
-                                        active_next();
-                                    }
-                                }else del_selected(i);
-                            }else if (is_selected(i) == false ) {
-                                 color_selSeat[i].classList.remove('selected');
-                                 del_selected(i);
-                                 active_next();
-                            }else alert('인원수 만큼 선택하셨습니다');
+            let can_double_cnt = total_people % 2 == 0 ? Number((total_people / 2).toFixed(0)) : Number((total_people / 2).toFixed(0)) - 1;
+            let now_double = 0;
+            let chk_canDouble = true;
+            // console.log('2명 가능 횟수', can_double_cnt);
+            // console.log('2명 현재 횟수', now_double);
+            run();
 
-
-                            // console.log(seat_nowChoose);
-                            aboutselect_rander();
-                            aboutselect.innerHTML = result_aboutselect;
-                        });
-                    }
+            function run() {
+                solo_sel();
+                if (total_people >= 2 && total_people - seat_nowChoose.length >= 2 &&
+                    seat_nowChoose.length % 2 == 0 && chk_canDouble) {
+                    doublesel();
                 }
             }
 
-            if(total_people >= 2 && total_people - seat_nowChoose.length >= 2){
-                console.log(seat_nowChoose)
-                for(let i = 0; i<color_selSeat.length; i++){
-
-                    let col = i % 10;
-                    let row = (i - col) / 10;
-
-                    let can_next;
-
-                    // if(col < 9){
-                    //     seat_data[row][col+1].is_sell == -1 ? can_next = false : true;
-                    // }
-
-                    // if(can_next){
-
-                    // }
-                    let double_seat = col % 2 == 0 ? 1 : -1;
-                    if(col <= 9){
-                        if(seat_data[row][col+double_seat].is_sell != -1 && seat_data[row][col].is_sell!= -1){
-                            color_selSeat[i].addEventListener('mouseenter', ()=>{
-                                color_selSeat[i+double_seat].classList.add('select');
+            function solo_sel() {
+                if (total_people != 0) {
+                    for (let i = 0; i < color_selSeat.length; i++) {
+                        let col = i % 10;
+                        let row = (i - col) / 10;
+                        let can_solo = poeple_cnt[0] + poeple_cnt[1] != 1 ? true : seat_data[row][col].is_sell == 0 ? false : true;
+                        if (seat_data[row][col].is_sell != -1 && can_solo) {
+                            color_selSeat[i].addEventListener('mouseenter', () => {
+                                color_selSeat[i].classList.add('select');
+                                // console.log(color_selSeat[i].getAttribute('class'));
                             });
-                            color_selSeat[i].addEventListener('mouseleave', ()=>{
-                                color_selSeat[i+double_seat].classList.remove('select');
+                            color_selSeat[i].addEventListener('mouseleave', () => {
+                                color_selSeat[i].classList.remove('select');
                             });
-                            color_selSeat[i].addEventListener('click', ()=>{
-                            if(poeple_cnt[0]+poeple_cnt[1] > seat_nowChoose.length){
-                                color_selSeat[i+double_seat].classList.toggle('selected');
-                                let pushing = selSeat_naming(i+double_seat);
-                                if(is_selected(i+double_seat)){
-                                    if(max_8()){
-                                        seat_nowChoose.unshift({id:i+double_seat, name:pushing});
-                                        console.log(seat_nowChoose)
-                                        active_next();
-                                    }
-                                }else del_selected(i+double_seat);
-                            }else if (is_selected(i+double_seat) == false ) {
-                                 color_selSeat[i+double_seat].classList.remove('selected');
-                                 del_selected(i+double_seat);
-                                 active_next();
-                            }else alert('인원수 만큼 선택하셨습니다');
-
-                            aboutselect_rander();
-                            aboutselect.innerHTML = result_aboutselect;
-                        });
+                            color_selSeat[i].addEventListener('click', () => {
+                                if (poeple_cnt[0] + poeple_cnt[1] > seat_nowChoose.length) {
+                                    color_selSeat[i].classList.toggle('selected');
+                                    let pushing = selSeat_naming(i);
+                                    if (is_selected(i)) {
+                                        if (max_8()) {
+                                            seat_nowChoose.unshift({ id: i, name: pushing });
+                                            active_next();
+                                        }
+                                    } else del_selected(i);
+                                } else if (is_selected(i) == false) {
+                                    color_selSeat[i].classList.remove('selected');
+                                    del_selected(i);
+                                    active_next();
+                                } else alert('인원수 만큼 선택하셨습니다');
+                                // console.log(seat_nowChoose);
+                                aboutselect_rander();
+                                aboutselect.innerHTML = result_aboutselect;
+                            });
                         }
                     }
                 }
             }
-            
+            function doublesel() {
+                for (let i = 0; i < color_selSeat.length; i++) {
+
+                    let col = i % 10;
+                    let row = (i - col) / 10;
+
+                    let double_seat = col % 2 == 0 ? 1 : -1;
+                    if (col <= 9) {
+                        if (seat_data[row][col + double_seat].is_sell != -1 && seat_data[row][col].is_sell != -1) {
+
+                            color_selSeat[i].addEventListener('mouseenter', () => {
+                                color_selSeat[i + double_seat].classList.add('select');
+                            });
+                            color_selSeat[i].addEventListener('mouseleave', () => {
+                                color_selSeat[i + double_seat].classList.remove('select');
+                            });
+
+                            color_selSeat[i].addEventListener('click', () => {
+                                if (poeple_cnt[0] + poeple_cnt[1] > seat_nowChoose.length) {
+                                    color_selSeat[i + double_seat].classList.toggle('selected');
+                                    let pushing = selSeat_naming(i + double_seat);
+                                    if (is_selected(i + double_seat)) {
+                                        if (max_8()) {
+                                            seat_nowChoose.unshift({ id: i + double_seat, name: pushing });
+                                            now_double++;
+                                            if (now_double == can_double_cnt) {
+                                                chk_canDouble = false;
+                                                rander();
+                                            }
+                                            // console.log('현재 선택 2좌석 : ', now_double);
+                                            // console.log('더블 가능? ', chk_canDouble);
+                                            active_next();
+                                        }
+                                    } else del_selected(i + double_seat);
+                                } else if (is_selected(i + double_seat) == false) {
+                                    color_selSeat[i + double_seat].classList.remove('selected');
+                                    del_selected(i + double_seat);
+                                    active_next();
+                                } else alert('인원수 만큼 선택하셨습니다');
+                                aboutselect_rander();
+                                aboutselect.innerHTML = result_aboutselect;
+                            });
+                        }
+                    }
+                }
+            }
             active_next();
         }
 
-        function poepleSelect_rander(){
+        function poepleSelect_rander() {
             adult_cnt_prt.innerText = poeple_cnt[0];
             child_cnt_prt.innerText = poeple_cnt[1];
         }
 
-        function max_8(){
-            if(seat_nowChoose.length<8) return true;
+        function max_8() {
+            if (seat_nowChoose.length < 8) return true;
             else return false;
         }
 
-        function del_selected(data_id){
+        function del_selected(data_id) {
             let ids = get_selected_id();
 
             let delNum = ids.indexOf(data_id);
@@ -315,14 +332,14 @@
             seat_nowChoose.splice(delNum, 1);
         }
 
-        function is_selected(data_id){
+        function is_selected(data_id) {
 
             let serach = get_selected_id();
             let result = serach.indexOf(data_id) == -1 ? true : false;
             return result
         }
 
-        function is_selected2(data_id){
+        function is_selected2(data_id) {
             let serach = get_selected_id();
             let first = serach.indexOf(data_id);
             serach.splice(first, 1);
@@ -340,44 +357,44 @@
         //     return result
         // }
 
-        function selSeat_naming(data_id){
+        function selSeat_naming(data_id) {
             let result = '';
             let col = data_id % 10;
             let row = (data_id - col) / 10;
 
-            result = seat_row_data[row]+(col+1);
+            result = seat_row_data[row] + (col + 1);
             return result;
 
         }
 
-        function seat_row_rander(){
+        function seat_row_rander() {
             result_seat_row = '';
-            for(let i =0; i<seat_data.length; i++){
+            for (let i = 0; i < seat_data.length; i++) {
                 result_seat_row += `<p>${seat_row_data[i]}</p>`;
             }
         }
 
         // 원래는 매개변수 받아와야 함
-        function aboutMovie_rander(){
+        function aboutMovie_rander() {
             result_aboutMovie = '';
             result_aboutMovie += `<span>${aboutMovie_data.age}</span><h2>${aboutMovie_data.title}</h2><p>${aboutMovie_data.howToShow}</p>`;
         }
-        
+
         // 원래는 매개변수 받아와야 함
-        function aboutTheater_rander(){
+        function aboutTheater_rander() {
             result_aboutTheater = ''
             result_aboutTheater += `<p>${aboutTheater_data[0].name}</p><p>${aboutTheater_data[0].room}</p><p>${aboutTheater_data[0].date}</p>
                                     <select><option>${aboutTheater_data[0].time}</option></select><img src="images&#92;${aboutMovie_data.image}" alt=${aboutMovie_data.title} 포스터/>`
 
 
         }
-        
+
         // 원래는 매개변수 받아와야 함
-        function aboutselect_rander(){
+        function aboutselect_rander() {
             result_aboutselect = '';
-            let how_seat_type = ['선택','예매완료','선택불가','일반'];
+            let how_seat_type = ['선택', '예매완료', '선택불가', '일반'];
             result_aboutselect += `<ul class='show_how'>`;
-            for(let i = 0; i < how_seat_type.length; i++){
+            for (let i = 0; i < how_seat_type.length; i++) {
                 result_aboutselect += `<li><img src='images/${how_seat_type[i]}.png' alt=''/>
                                         <label>${how_seat_type[i]}</label></li>`
             }
@@ -385,51 +402,51 @@
 
             result_aboutselect += `<ul class='seat_now'>`;
             result_aboutselect += `<li class='seat_now_info'><h3>선택좌석</h3></li>`;
-                for(let i = 0; i < 8; i++){
-                    seat_nowChoose[i] == undefined ? result_aboutselect += `<li>-</li>` :
+            for (let i = 0; i < 8; i++) {
+                seat_nowChoose[i] == undefined ? result_aboutselect += `<li>-</li>` :
                     result_aboutselect += `<li class='coloring'>${seat_nowChoose[i].name}</li>`;
-                }
+            }
             result_aboutselect += `</ul>`;
 
-            
+
         }
-        
-        function aboutPrice_rander(){
+
+        function aboutPrice_rander() {
             totalPrice = aboutMovie_data.Aprice * poeple_cnt[0] + aboutMovie_data.Cprice * poeple_cnt[1]
             let show_Child = poeple_cnt[1] == 0 ? '' : `청소년 ${poeple_cnt[1]}명`;
             let show_audlt = poeple_cnt[0] == 0 ? '' : `성인 ${poeple_cnt[0]}명`;
-            let show_middle = poeple_cnt[0] >=1 && poeple_cnt[1] >=1  ? '·' : ''
+            let show_middle = poeple_cnt[0] >= 1 && poeple_cnt[1] >= 1 ? '·' : ''
             let show_mans = totalPrice != 0 ? `<p class='how_many'>${show_audlt} ${show_middle} ${show_Child}</p>` : `<p class='how_many noShow'>0</p>`;
             result_aboutPrice = '';
             result_aboutPrice += `${show_mans}<p>최종결제금액</p><p><span>${totalPrice}</span>원</p>`;
         }
 
-        function set_cnaNot_solo(){
-            for(let i = 0; i<seat_data.length; i++){
-                for(let j = 0; j<seat_data[i].length; j++){
-                    if(seat_data[i][j].is_sell != -1){
-                    seat_data[i][j].is_sell = 1;
+        function set_cnaNot_solo() {
+            for (let i = 0; i < seat_data.length; i++) {
+                for (let j = 0; j < seat_data[i].length; j++) {
+                    if (seat_data[i][j].is_sell != -1) {
+                        seat_data[i][j].is_sell = 1;
                     }
                 }
                 // 연속 1인 자리 구하기
                 let cnt_now = 0; // 검사 시작 인덱스 값
-                for(let j = 0; j<seat_data[i].length; j++){
-                    if(cnt_now >= seat_data[i].length) break;
-                    if(seat_data[i][cnt_now].is_sell == -1) cnt_now++; // 다음 값으로 검사 이동
+                for (let j = 0; j < seat_data[i].length; j++) {
+                    if (cnt_now >= seat_data[i].length) break;
+                    if (seat_data[i][cnt_now].is_sell == -1) cnt_now++; // 다음 값으로 검사 이동
                     else { //검사
                         let cnt_end = cnt_now; // 0칸
-                        while(cnt_end < seat_data[i].length && seat_data[i][cnt_end].is_sell != -1){
+                        while (cnt_end < seat_data[i].length && seat_data[i][cnt_end].is_sell != -1) {
                             cnt_end++;
                         }
                         let continues = cnt_end - cnt_now
-                        while(continues >= 3 && continues != 4){
-                            seat_data[i][cnt_now+1].is_sell = 0;
+                        while (continues >= 3 && continues != 4) {
+                            seat_data[i][cnt_now + 1].is_sell = 0;
                             cnt_now += 2;
                             continues -= 2;
                         }
-                        if(continues == 4){
-                            seat_data[i][cnt_now+1].is_sell = 0;
-                            seat_data[i][cnt_now+2].is_sell = 0;
+                        if (continues == 4) {
+                            seat_data[i][cnt_now + 1].is_sell = 0;
+                            seat_data[i][cnt_now + 2].is_sell = 0;
                         }
                         cnt_now = cnt_end;
                     }
@@ -438,14 +455,14 @@
             }
         }
 
-        function reset_sel(){
+        function reset_sel() {
             poeple_cnt = [0, 0];
             seat_nowChoose = new Array();
             rander();
         }
 
         // 인원수 가감
-        function plus(i){
+        function plus(i) {
             // if(seat_nowChoose.length != 0){
             //     alert('선택한 자리를 먼저 취소한 후 진행해주세요');
             //     return;
@@ -455,17 +472,17 @@
             // seat_hover_rander();
             rander();
         }
-        function minus(i){
-            if(seat_nowChoose.length >= (poeple_cnt[0]+poeple_cnt[1])){
+        function minus(i) {
+            if (seat_nowChoose.length >= (poeple_cnt[0] + poeple_cnt[1])) {
                 alert('선택한 자리를 먼저 취소해 주세요.');
                 return;
-            }else poeple_cnt[i] == 0 ? '' : poeple_cnt[i]--;
+            } else poeple_cnt[i] == 0 ? '' : poeple_cnt[i]--;
             // poepleSelect_rander();
             // seat_hover_rander();
             rander();
         }
 
-        function test(){
+        function test() {
             seat_data[0][1].is_sell = -1;
             seat_data[0][5].is_sell = -1;
             seat_data[0][8].is_sell = -1;
@@ -474,11 +491,11 @@
             rander();
         }
 
-        function active_next(){
-            if(seat_nowChoose.length != 0 && seat_nowChoose.length == poeple_cnt[0] + poeple_cnt[1]){
+        function active_next() {
+            if (seat_nowChoose.length != 0 && seat_nowChoose.length == poeple_cnt[0] + poeple_cnt[1]) {
                 next_btn.classList.add('active');
                 // next_btn.classList.remove('next_btn');
-            }else{
+            } else {
                 next_btn.classList.remove('active');
             }
 
@@ -489,4 +506,5 @@
         rander();
     </script>
 </body>
+
 </html>

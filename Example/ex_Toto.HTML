@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TodoList</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .todo-container{
+            width: 400px;
+            margin: 200px auto 0 auto;
+            /* border: 1px solid #acabab; */
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 1px 1px 10px #acabab;
+        }
+
+        .input-area{
+            display: flex;
+            width: 250px;
+            justify-content: space-between;
+            margin: 0 auto;
+        }
+
+        h1{
+            margin-bottom: 10px;
+        }
+
+        input{
+            width: 200px;
+            height: 35px;
+            padding-left: 10px;
+        }
+
+        input:focus{
+            outline: none;
+        }
+
+        button{
+            width: 45px;
+            height: 35px;
+        }
+        ul{
+            margin: 20px auto;
+            list-style: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 200px;
+            flex-wrap: wrap;
+        }
+
+        li {
+            display: flex;
+            justify-content: space-between;
+            width: 200px;
+            background-color: #ebebeb;
+            border-radius: 10px;
+            padding: 10px
+        }
+
+        li button{
+            background-color: inherit;
+            color: rgb(187, 1, 1);
+            border: none;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="todo-container">
+        <h1>할 일 목록</h1>
+        <div class="input-area">
+            <input type="text" id="task" placeholder="할 일 입력"/>
+            <button onclick="addTesk()">추가</button>
+        </div>
+        <ul id="tasks"></ul>
+    </div>
+
+    <script>
+        
+        let tasks = document.getElementById('tasks');  
+        let list_num = 0;
+
+        function addTesk(){
+            // let task = document.getElementById('task');
+            // let new_todo = task.value;
+            let new_todo = document.getElementById('task').value; // 한 줄로 합치기
+
+            if (new_todo==''){
+                alert('할일을 입력하세요');
+                return;
+            }
+            let new_todoTag = document.createElement('li');
+            // new_todoTag.innerText = new_todo;
+
+            new_todoTag.setAttribute('id', `child${list_num}`);
+
+            let new_del_btn = document.createElement('button');
+            let new_text = document.createElement('p');
+
+            new_del_btn.className='del_btn';
+            new_del_btn.innerText = 'X';
+            new_text.innerText = new_todo;
+            
+            // new_del_btn.document.setAttribute('onclick','removeTesk(list_num)'); onclick 은 이 방법으로 심을 수 없음
+            new_todoTag.appendChild(new_text);
+            new_todoTag.appendChild(new_del_btn);
+            tasks.appendChild(new_todoTag);
+
+            // new_del_btn 클릭 시 삭제
+            new_del_btn.onclick = function removeTesk(){
+                new_todoTag.remove();
+            };
+
+            list_num++   
+        }
+    </script>
+</body>
+</html>

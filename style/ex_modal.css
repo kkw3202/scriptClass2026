@@ -1,0 +1,119 @@
+@charset "UTF-8";
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* body 안에 든 fontfamily는 input, button 태그에는 미적용 */
+    font-family: sans-serif;
+}
+
+body{
+    color: #222;
+    font-size: 15px;
+}
+
+.modal{
+    /* 모달은 고정이기본값 */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    /* border: 1px solid red; */
+    z-index: 2;
+    /* opacity: 0; */
+    display: none;
+}
+
+.show_modal{
+    /* opacity: 1; */
+    display: inline-block;
+}
+
+.modal_content{
+    width: 600px;
+    border: 1px solid blue;
+    box-shadow: 0 0 10px rgba(0,0,0,0.15);
+    background-color: #fff;
+    display: flex;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.modal_content > div{
+    padding: 20px;
+}
+
+.photo{
+    flex: 1;
+    /* border: 1px solid red; */
+    /* 백그라운드 이미지 삽입하기 */
+    background:url(/images/office.jpg);
+    /* 기본적으로, 배경이미지는 반복. 이를 비활성화 */
+    background-repeat: no-repeat;
+    /* 배경 이미지 오른쪽정렬 */
+    background-position: right;
+    /* 이미지가 요소의 크기에 맞도록 지정 */
+    background-size: cover;
+}
+
+.description{
+    flex: 2;
+    text-align: center;
+}
+
+.overlay{
+    /* position이 2개 이상일 경우 아래있는 HTML 태그에 우선권 있음 */
+    position: fixed;
+    top: 0;
+    left: 0;
+    /* transform: translate(-50%, -50%); */
+    background-color: rgba(0,0,0,0.3);
+    width: 100%;
+    /* 부모 요소의 100% */
+    /* height: 100%; */
+    /* 브라우저 화면의 높이 */
+    height: 100vh;
+    z-index: 1;
+    visibility: hidden;
+}
+
+.show_overlay{
+    visibility: visible;
+}
+
+.btn_close{
+    /* 자식. 부모는 modal. modal이 fix 되어있어서 릴레이티브 줄 필요 없음 */
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: transparent;
+    border: none;
+    font-size: 18px;
+    color: #999;
+    cursor: pointer;
+}
+
+.desc_content input,
+.desc_content button{
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 7px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    outline: none;
+}
+
+.desc_content button{
+    background-color: crimson;
+    color: #fff;
+}
+
+.desc_content input::placeholder{
+    color: #bbb;
+}
+
+.desc_content input:focus::placeholder{
+    visibility: hidden;
+}
