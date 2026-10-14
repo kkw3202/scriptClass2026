@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>슬라이드 메뉴</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+
+        ul{
+            list-style: none;
+        }
+
+        a{
+            text-decoration: none;
+            color: inherit;
+        }
+
+        body{
+            width: 100%;
+            padding-left: 230px;
+            position: relative;
+        }
+
+        #menuBtn{
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            background-color: #333333;
+            width: 30px;
+            height: 30px;
+            color: #fff;
+            font-size: 20px;
+            line-height: 8px;
+            border-radius: 5px;
+            z-index: 20;
+            cursor: pointer;
+            /* outline: none; */
+            border: none;
+        }
+
+
+        #menu{
+            position: absolute;
+            width: 200px;
+            background-color: #555555;
+            color: #fff;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            padding: 100px 30px;
+            transform: translateX(-200px);
+            transition: transform 0.3s;
+            user-select: none;
+        }
+
+        #menu.show{
+            transform: translateX(0);
+        }
+
+        #menu li{
+            width: 140px;
+        }
+
+        #menu li{
+            margin: 30px 0;
+            padding: 0 20px;
+            background-color: #666666;
+            width: 100%;
+            height: 40px;
+            line-height: 40px;
+            border-radius: 10px;
+            user-select: none;
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        #menu li a{
+            display: block;
+            background: none;
+            width: 100%;
+        }
+
+        #menu li:hover{
+            font-weight: 650;
+            transform: scale(1.3);
+            transform: translate(-0.3%);
+        }
+
+        #menu li.select{
+            background-color: #777777;
+            font-size: 23px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>DOM 실습 - 왼쪽 슬라이드 메뉴</h1>
+    <button id="menuBtn">&#x2630;</button>
+    <nav id="menu">
+        <ul>
+            <li><a href="#">홈</a></li>
+            <li><a href="#">서비스</a></li>
+            <li><a href="#">문의</a></li>
+            <li><a href="#">연락처</a></li>
+            <li><a href="#">소개</a></li>
+        </ul>
+    </nav>  
+
+    <script>
+        let menuBtn = document.getElementById('menuBtn');
+        let menu = document.getElementById('menu');
+        let li_arr = document.querySelectorAll('#menu li');
+
+        menuBtn.addEventListener('click', ()=>{
+            menu.classList.toggle('show');
+        });
+
+        li_arr.forEach((value, index) => {
+            value.addEventListener('mouseenter', ()=>{
+                value.classList.add('select');
+            })
+            value.addEventListener('mouseleave', ()=>{
+                value.classList.remove('select');
+            })
+            value.addEventListener('click', ()=>{
+                index != 0 ? pop_alert() : '';
+            })
+        });
+
+        function pop_alert(){
+            alert('아직 준비중인 기능입니다.')
+        }
+
+    </script>
+</body>
+
+</html>

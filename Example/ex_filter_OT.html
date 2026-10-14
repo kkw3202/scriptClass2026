@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>filter 메소드</title>
+    <style>
+        .container{
+            width: 400px;
+            margin: 100px auto;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button class="btn">과일</button>
+        <button class="btn">어류</button>
+        <ul class="cart"></ul>
+    </div>
+    
+    <script>
+        let menu =[
+            {id:0, name:'딸기', category:1},
+            {id:1, name:'포도', category:1},
+            {id:2, name:'바나나', category:1},
+            {id:3, name:'고등어', category:2},
+            {id:4, name:'조기', category:2},
+            {id:5, name:'갈치', category:2}
+        ]
+
+        // 문제 : 과일버튼을 누르면 menu의 오브젝트 배열의 카테고리가 1이면 과일이 li로 추가, 
+        // 어류 버튼을 누르면 카테고리가 2인 어류가 li로 추가.
+
+        // DOM 연결부
+        let cart = document.querySelector('.cart');
+        let btn = document.querySelectorAll('.btn');
+
+        function rander(cateNum){
+            let filter_menu = menu.filter((item) => {
+                return item.category === cateNum 
+            });
+
+            // let filter_menu = menu.filter((item) => item.category === cateNum ? item.name : '');
+            // 삼항 연산자 사용시 filter_menu.length 사용에서 꼬임.
+            
+            // innerHTML
+            let result = '';
+            for(let i = 0; i<filter_menu.length; i++){
+                result += `<li>${filter_menu[i].name}</li>`;
+            }
+            cart.innerHTML = result;
+        }
+
+        rander(1);
+
+
+        for(let i = 0; i<btn.length; i++){
+            btn[i].addEventListener('click', ()=>{
+                let cateIndex = i + 1;
+                rander(cateIndex);
+            });
+        }
+    </script>
+</body>
+</html>

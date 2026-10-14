@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>무인 카페 키오스크</title>
+    <link rel="stylesheet" href="kioskCafe_filter.css">
+</head>
+<body>
+    <div class="contaner">
+        <section class="menu">
+            <div id="guide">
+                <h1>원하는 음료를 선택해 주세요</h1>
+                <p>Please choose the drink you want</p>
+            </div>
+            <div id="menu_wrap">
+                <h1>MENU</h1>
+                <h2 id="show_nowCategory"></h2>
+                <div class="category_btn">
+                    <button type="button">전체</button>
+                    <button type="button">커피</button>
+                    <button type="button">디카페인</button>
+                </div>
+                <ul id="menuList"></ul>
+            </div>
+        </section>
+        <form action="#" method="get">
+            <section class="order">
+                <div id="cart_wrap">
+                    <h1>주문내역</h1>
+                    <ul id="cartList"></ul>
+                </div>
+            </section>
+            <footer>
+                <div id="pay">
+                    <p>총 주문 금액 : <span id="totalPrice"></span> 원</p>
+                    <button type="button">현금결제</button>
+                </div>
+            </footer>
+        </form> 
+    </div>
+    <script>
+        // DOM부
+        let menuList = document.getElementById('menuList');
+        let cartList = document.getElementById('cartList');
+        let totalPrice = document.getElementById('totalPrice');
+        let category_btn = document.querySelectorAll('.category_btn button');
+        let pay_btn = document.querySelector('#pay button');
+        let show_nowCategory = document.getElementById('show_nowCategory');
+
+        // 전역변수 선언부
+        let now_category = 0; // 0=전체, 1=커피, 2=디카페인
+        let showtotal = 0; // totalPrice 출력할 금액
+        
+        // (더미)데이터 저장부
+        let menus = [
+            { id: 0, name: '아메리카노', type: 'HOT', price: 1000, quantity:1, category:1},
+            { id: 1, name: '아메리카노', type: 'ICE', price: 1300, quantity:1, category:1},
+            { id: 2, name: '바닐라라떼', type: 'HOT', price: 2500, quantity:1, category:1},
+            { id: 3, name: '바닐라라떼', type: 'ICE', price: 2800, quantity:1, category:1},
+            { id: 4, name: '연유라떼', type: 'HOT', price: 2500, quantity:1, category:1},
+            { id: 5, name: '연유라떼', type: 'ICE', price: 2800, quantity:1, category:1},
+            { id: 6, name: '카라멜마끼아또', type: 'HOT', price: 2800, quantity:1, category:1},
+            { id: 7, name: '카라멜마끼아또', type: 'ICE', price: 3000, quantity:1, category:1},
+            { id: 8, name: '카페모카', type: 'HOT', price: 3000, quantity:1, category:1},
+            { id: 9, name: '카페모카', type: 'ICE', price: 3300, quantity:1, category:1},
+            { id: 10, name: '딥카페라테', type: 'HOT', price: 3400, quantity:1, category:1},
+            { id: 11, name: '딥카페라테', type: 'ICE', price: 3700, quantity:1, category:1},
+            { id: 12, name: '디카페인 아메리카노', type: 'HOT', price: 1500, quantity:1, category:2},
+            { id: 13, name: '디카페인 아메리카노', type: 'ICE', price: 1800, quantity:1, category:2},
+            { id: 14, name: '디카페인 바닐라라떼', type: 'HOT', price: 3000, quantity:1, category:2},
+            { id: 15, name: '디카페인 바닐라라떼', type: 'ICE', price: 3300, quantity:1, category:2},
+            { id: 16, name: '디카페인 연유라떼', type: 'HOT', price: 3000, quantity:1, category:2},
+            { id: 17, name: '디카페인 연유라떼', type: 'ICE', price: 3300, quantity:1, category:2},
+            { id: 18, name: '디카페인 카라멜마끼아또', type: 'HOT', price: 3300, quantity:1, category:2},
+            { id: 19, name: '디카페인 카라멜마끼아또', type: 'ICE', price: 3500, quantity:1, category:2},
+            { id: 20, name: '디카페인 카페모카', type: 'HOT', price: 3500, quantity:1, category:2},
+            { id: 21, name: '디카페인 카페모카', type: 'ICE', price: 3800, quantity:1, category:2},
+            { id: 22, name: '디카페인 딥카페라테', type: 'HOT', price: 3900, quantity:1, category:2},
+            { id: 23, name: '디카페인 딥카페라테', type: 'ICE', price: 4200, quantity:1, category:2}
+        ];
+
+        let cart = new Array();  // menus 에서 카트에 담은 상품의 id값 (=인덱스 번호) 저장
+
+        // 함수부
+        // 화면 (HTML) 만들기
+        function display(){
+            // console.log('현재 데이터상 카테고리 : ',`${now_category}`);
+            
+            let result_menuList =''; // menuList HTML 출력용
+            let result_orderList =''; // orderList HTML 출력용
+            let total = 0; // totalPrice 출력할 금액
+            let showMenus;
+
+            // menuList 체우기
+            if(now_category != 0){
+                console.log('실행됨');
+                console.log('현재 데이터상 카테고리 : ',`${now_category}`);
+                showMenus = menus.filter((value)=>{
+                    if(value.category == now_category){
+                        return value;
+                    } 
+                });
+            }else{
+                showMenus = menus;
+            }
+                showMenus.forEach((value) => {
+                    result_menuList += `<li class='product cardColor_${value.category}' onclick='addCart(${value.id})'>
+                                        <img src='img/${value.id <= 11 ? value.id : value.id-12}.png' alt='${value.name}_이미지' />
+                                        <p>${value.type}</p>
+                                        <p class='name'>${value.name}</p>
+                                        <p class='price'><span>${value.price.toLocaleString()}</span>￦</p>
+                                        </li>`
+                });
+                // menuList 출력
+                menuList.innerHTML = result_menuList;
+
+            // cartList 체우기
+            cart.forEach((value, index) => {
+                let menu_totalprice = (menus[value].price) * ((menus[value].quantity)-1);
+                total += menu_totalprice;
+                if(cart.length!=0){
+                    if(menus[value].quantity>1){
+                            result_orderList += `<li class='cart_product'>
+                                                <p>${menus[value].name}(${menus[value].type}), ${menu_totalprice.toLocaleString()}원</p>
+                                                <button onclick='minus(${menus[value].id})'>-</button>
+                                                <span>${menus[value].quantity-1}개</span>
+                                                <button onclick='plus(${menus[value].id})'>+</button>
+                                                <button onclick='delCart(${menus[value].id})' class='del_btn'>x</button>
+                                                </li>`
+                        }
+                    }
+            });
+            showtotal = total;
+            totalPrice.innerText = total.toLocaleString();
+            cartList.innerHTML = result_orderList;
+        }
+
+        // cartList에 추가 및 삭제
+        function addCart(id){
+            // console.log(typeof id)
+            let is_cart = -1; // 0이면 가산, 이외는 추가
+            if(cart.length != 0){
+                cart.forEach((value) =>{
+                    // cart.value != id ? is_cart++ : is_cart--;
+                    // console.log('있냐? '+cart.includes(id));
+                    cart.includes(id) == true ? is_cart=0 : is_cart=-1;
+                });
+            }
+
+            if(is_cart == 0){
+                plus(id);
+                // console.log('가산');
+            }else{
+                cart.push(id);
+                menus[id].quantity++;
+                // console.log('생성');
+            }
+            // console.log(is_cart);
+            // console.log(cart);
+            display();
+        }
+
+        function delCart(id){
+            let delIndexNum = cart.indexOf(id);
+            // console.log('delIndexNum : '+ delIndexNum)
+            cart.splice(delIndexNum, 1);
+            menus[id].quantity = 1;
+            display();
+        }
+
+        // cartcartList의 수량 조절
+        function minus(id){
+            if(menus[id].quantity == 2){
+                alert('수량은 1개 이상 가능합니다.');
+            }else{
+                menus[id].quantity--;
+                display();
+            }
+        }
+
+        function plus(id){
+            menus[id].quantity++;
+            display();
+        }
+
+        // 카테고리 선택버튼 기능 주기
+        function category_sel(){
+            category_btn.forEach((value, index) => {
+                value.addEventListener('click', ()=>{
+                    now_category = index;
+                    index == 0 ? show_nowCategory.innerText = '전체' :
+                    index == 1 ? show_nowCategory.innerText = '커피' :
+                    show_nowCategory.innerText = '디카페인' ;
+
+                    for(let i = 0; i<category_btn.length; i++)show_nowCategory.classList.remove(`cardColor_${i}`);
+                    show_nowCategory.classList.add(`cardColor_${index}`);
+                    display();
+                    // console.log('현재 선택된 카테고리 : ',`${index == 0 ? '전체' : index == 1 ? '커피' : '디카페인'}`);
+                    console.log('현재 데이터상 카테고리 : ',`${now_category}`);
+                });
+            });
+        }
+
+        // 결제버튼 기능주기
+        pay_btn.addEventListener('click', ()=>{
+            if(showtotal == 0 ) alert('메뉴를 먼저 선택해 주세요.');
+            else{
+                let pay_chk = confirm(`총 결제 금액은 ${showtotal}원 입니다. 결제하시겠습니까?`);
+                if(pay_chk){
+                    while(cart.length = 0){
+                        cart.shift();
+                    }
+                    showtotal = 0;
+                    display();
+                }
+            };
+        });
+
+        // 초기 화면 출력용 함수 호출부
+        category_sel();
+        display();
+    </script>
+</body>
+</html>

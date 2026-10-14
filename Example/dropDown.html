@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>드롭다운</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+        a{
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul{
+            list-style: none;
+        }
+
+        .dropdown{
+            width: 200px;
+            margin: 100px auto;
+            /* border: 1px solid red; */
+            position: relative;
+        }
+
+        span.arrow{
+            font-size: 12px;
+            /* color: blue; */
+            /* 애니메이션. 움직일때 느리게.. */
+            transition: transform 0.3s;
+        }
+
+        span.arrow.up{
+            /* 애니메이션. 회전. 이 경우엔 180도 */
+            transform: rotate(180deg);
+            /* color: red; */
+        }
+        
+        .dropdown .dropdown-btn{
+            width: 150px;
+            background: none;
+            border: none;
+            text-align: left;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+            padding: 5px 10px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .dropdown .dropdown-menu{
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 10px 15px;
+            /* display: flex; */
+            /* align-content: space-between; */
+            flex-wrap: wrap;
+            gap: 8px;
+            border-radius: 8px;
+            position: absolute;
+            top: 120%;
+            left : 0;
+            display: none;
+        }
+
+        .dropdown .dropdown-menu.show{
+            display: flex;
+        }
+
+        .dropdown .dropdown-menu li{
+            width: 100%;
+            /* border: 1px solid red; */
+        }
+        .dropdown .dropdown-menu li:hover{
+            color: #000;
+            font-weight: 700;
+            transform: scale(1.2);
+            transform: translateX(0.2%);
+        }
+
+        
+    </style>
+</head>
+
+<body>
+    <div class="dropdown">
+        <button class="dropdown-btn" id="dropdownBtn">
+            고객센터 <span class="arrow">▼</span>
+        </button>
+        <ul class="dropdown-menu" id="dropdownMenu">
+            <li><a href="#">공지사항</a></li>
+            <li><a href="#">뉴스/이벤트</a></li>
+            <li><a href="#">상품 리뷰</a></li>
+            <li><a href="#">상품 문의</a></li>
+            <li><a href="#">대량구매/도매문의</a></li>
+            <li><a href="#">기타문의</a></li>
+        </ul>
+    </div>
+
+
+    <script>
+        // DOM 연결부
+        let dropdownBtn = document.getElementById('dropdownBtn');
+        let dropdownMenu = document.getElementById('dropdownMenu');
+        let arrow = document.querySelector('#dropdownBtn .arrow');
+        // 전역 변수 선언부
+
+
+        // 함수 선언부
+
+        // 버튼 기능 부여
+        dropdownBtn.addEventListener('click', ()=>{
+            dropdownMenu.classList.toggle('show');
+            // 화살표 회전
+            arrow.classList.toggle('up');
+        });
+    </script>
+</body>
+
+</html>

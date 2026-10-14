@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>함수 종류</title>
+</head>
+<body>
+    
+
+    <script>
+        // 선언적 함수 : 우선권이 주어짐.
+        // 호이스팅 이슈 존재 => 함수 전체가 스코프(=영역) 최상단으로 끌어올려 지는 현상. 함수 선언 전에 호출하여 사용 가능.
+        sayHello();
+        function sayHello(){
+            console.log('01 : Hello');
+        }
+        sayHello();
+
+        // 익명함수 => 함수의 이름이 존재하지 않는 함수. 호출 불가능
+        // 함수를 호출 할 수 없으므로 대입하여 사용. => 익명함수 = 대입함수
+        // sayHello02(); // 변수 선언 전에는 사용할 수 없음
+        let sayHello02 = function(){
+            console.log('02 : Hello02');
+        }
+        sayHello02(); // sayHello02도 함수로 사용하니 () 붙여야함. 안 붙이면 미작동.
+
+        // 함수 안에 함수를 또 다른 인수로 호출 가능
+        function say(){
+            return 'sayHello';
+        }
+
+        function greeting(hellMsg, name){
+            console.log(hellMsg + " " + name);
+        }
+
+        greeting(say(), 'javaScript');
+
+
+        // 화살표 함수 : 자바스크립트/리엑트에서 주로 사용하는 함수 작성방법
+        // 익명함수보다 표현식이 단순하도 간결한 문법으로 함수를 만들 수 있다.
+        // let 이름 = (인수, 인수) => 실행식
+        let sum = (a,b) => a+b > 10 ? '10초과' : '10이하';
+        console.log('화살표 sum 함수 : ', sum(2,5));
+
+        let sum02 = function(a,b){
+            return a+b;
+        }
+        console.log('익명 sum 함수 : ', sum02(10,5));
+
+        function sum03(a,b){
+            return a+b;
+        }
+        console.log('선언적 sum 함수 : ', sum03(5,7));
+
+
+        // 즉시 실행 함수
+        (function (){
+            document.write(`<p>Hello JavaScript</p>`);
+            console.log('즉시실행함수 언제 실행?');
+        })();
+
+        // JavaScript 에서 a == b 는 a 와 b 의 값이 같은지 만 비교한다.
+        // JavaScript 에서 a === b 는 a 와 b 의 값이 같은지, 변수의 유형이 일치하는지 비교한다.
+        // 배열에서 filter() 메소드 => 조건에 만족하는 요소들만 새로운 배열로 반환
+
+        let num=[1,2,3,4,5,6,7,8,9,10];
+
+        let isOdd = (currentNum) => {
+            return currentNum % 2 == 0;
+        }
+
+        console.log('짝수 출력 : ', num.filter(isOdd));
+        
+        num = num.filter((item) => item % 2 == 1); // 첫 괄호 안의 item 은 단순 작명
+        console.log('홀수 : ', num);
+    </script>
+</body>
+</html>
