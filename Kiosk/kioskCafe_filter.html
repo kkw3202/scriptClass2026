@@ -15,7 +15,7 @@
             </div>
             <div id="menu_wrap">
                 <h1>MENU</h1>
-                <h2 id="show_nowCategory"></h2>
+                <h2 id="show_nowCategory">전체</h2>
                 <div class="category_btn">
                     <button type="button">전체</button>
                     <button type="button">커피</button>
@@ -90,16 +90,12 @@
             let result_menuList =''; // menuList HTML 출력용
             let result_orderList =''; // orderList HTML 출력용
             let total = 0; // totalPrice 출력할 금액
-            let showMenus;
+            let showMenus; // 카테고리 선택한 매뉴만 출력할 배열
 
             // menuList 체우기
             if(now_category != 0){
-                console.log('실행됨');
-                console.log('현재 데이터상 카테고리 : ',`${now_category}`);
                 showMenus = menus.filter((value)=>{
-                    if(value.category == now_category){
-                        return value;
-                    } 
+                    if(value.category == now_category) return value;
                 });
             }else{
                 showMenus = menus;
@@ -189,15 +185,14 @@
             category_btn.forEach((value, index) => {
                 value.addEventListener('click', ()=>{
                     now_category = index;
-                    index == 0 ? show_nowCategory.innerText = '전체' :
-                    index == 1 ? show_nowCategory.innerText = '커피' :
-                    show_nowCategory.innerText = '디카페인' ;
+                    let CateNamePrt = index == 0 ? '전체' : index == 1 ? '커피' : '디카페인';
+                    show_nowCategory.innerText = CateNamePrt;
 
                     for(let i = 0; i<category_btn.length; i++)show_nowCategory.classList.remove(`cardColor_${i}`);
                     show_nowCategory.classList.add(`cardColor_${index}`);
+                
                     display();
-                    // console.log('현재 선택된 카테고리 : ',`${index == 0 ? '전체' : index == 1 ? '커피' : '디카페인'}`);
-                    console.log('현재 데이터상 카테고리 : ',`${now_category}`);
+                    // console.log('현재 데이터상 카테고리 : ',`${now_category}`);
                 });
             });
         }
@@ -220,6 +215,8 @@
         // 초기 화면 출력용 함수 호출부
         category_sel();
         display();
+        // 원본임
+        // 원본임
     </script>
 </body>
 </html>
